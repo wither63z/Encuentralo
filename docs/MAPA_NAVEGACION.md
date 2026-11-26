@@ -3,6 +3,9 @@
 Navegación sin router: `App.tsx` muestra una vista según la unión `Vista` (`src/types/index.ts`).
 
 ```
+   Login (Clerk: Google o correo verificado) — en la web publicada, antes de todo
+                │
+                ▼
                 ┌──────────── Navbar: Inicio · Objetos ────────────┐
                 ▼                                                  ▼
 Inicio ──Ver objetos──▶ Listado ──tarjeta──▶ Detalle ──Reclamar (solo Disponible)──▶ Formulario
@@ -12,8 +15,9 @@ Inicio ──Ver objetos──▶ Listado ──tarjeta──▶ Detalle ──R
                           └────────────── Volver al listado ──────────── Confirmación (éxito / error)
 
 Pie de página (todas las vistas):
-  «¿Qué perdiste?» ──▶ Coincidencias ──Ver detalle──▶ Detalle
-  «Modo inspector» ──▶ Inspector (marcar Entregado, conteo por estado)
+  «Reportar objeto encontrado» ──▶ Reportar (con foto) ──Registrar──▶ Detalle del objeto nuevo
+  «¿Qué perdiste?» ──▶ Coincidencias ──Ver detalle──▶ Detalle  (sin resultados: «Ver el listado completo» ──▶ Listado)
+  «Modo inspector» (solo profesores) ──▶ Inspector + Radar ──objeto estancado──▶ Detalle
 ```
 
 | Vista | Qué muestra | Cómo se llega | Reglas del jurado |
@@ -24,6 +28,7 @@ Pie de página (todas las vistas):
 | Formulario de reclamo | Nombre, curso y seña con errores junto a cada campo y contador n / 10 | «Reclamar» en un objeto Disponible | 4, 5 |
 | Confirmación | Éxito o error y «Volver al listado» | Al enviar el formulario | 3 |
 | ¿Qué perdiste? | Descripción de lo perdido y los 3 objetos Disponibles más parecidos | Pie de página | Solo sugiere Disponibles |
-| Inspector | Conteo por estado y botón para marcar Entregado | Pie de página | 1 |
+| Reportar | Formulario con nombre, categoría, lugar, fecha, descripción y foto opcional | Pie, Inicio o botón flotante del Listado | Validación de campos |
+| Inspector + Radar | Conteo por estado, marcar Entregado, objetos estancados (> 5 días) y top 3 de lugares y categorías | Pie (solo con rol de profesor) | 1 |
 
-Login solo aparece si Clerk está activo; en la demo (`VITE_USE_MOCK=true`) se reclama directo.
+El login aparece primero en la web publicada (Clerk activo). En el .exe y la APK no hay login: se reclama directo y el Modo inspector no se muestra. Bocetos de las pantallas: `docs/bocetos/`.

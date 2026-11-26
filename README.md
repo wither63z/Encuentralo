@@ -1,9 +1,19 @@
 # Encuéntralo · Objetos perdidos · Técnico Salesiano
 
-App web (Vite + React + TypeScript + Tailwind) para explorar objetos perdidos del colegio, buscarlos, ver su detalle y registrar un reclamo de prueba.
+App (Vite + React + TypeScript + Tailwind; web, Android y Windows) para explorar objetos perdidos del colegio, buscarlos, ver su detalle y registrar un reclamo de prueba.
 Proyecto para "Mentes que Programan 2026" (Categoría B). Carpeta de entrega: `CategoriaB_TecnicoSalesiano_Encuentralo`.
 
-## Cómo ejecutar el proyecto (jurado)
+## Acceso rápido (jurado)
+| Qué | Dónde | Login |
+|---|---|---|
+| Presentación (landing) | https://encuentralo.encuentralo.workers.dev · copia: https://wither63z.github.io/Encuentralo/ | No |
+| App web | https://encuentralo.encuentralo.workers.dev/app/ | Sí: Google o correo verificado (credenciales de demostración se entregan aparte, no van en el código) |
+| Android (APK) | https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk | No |
+| Windows (.exe portable) | https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe | No |
+
+Entregables: ficha `docs/FICHA_PROYECTO.md` · declaración de IA `docs/DECLARACION_IA.md` · registro de IA `docs/BITACORA_IA.md` · mapa `docs/MAPA_NAVEGACION.md` · bocetos `docs/bocetos/` · Android Studio `docs/ANDROID_STUDIO.md`.
+
+## Cómo ejecutar el proyecto en local
 Requisitos: Node.js 20 o superior.
 ```bash
 git clone https://github.com/wither63z/Encuentralo.git
@@ -13,13 +23,19 @@ cp .env.example .env      # en Windows PowerShell: copy .env.example .env
 npm run dev -- --host
 ```
 Abrir la URL que muestra la terminal (en el celular, la de "Network" en la misma red WiFi).
-Por defecto `VITE_USE_MOCK=true`: funciona sin internet ni claves, con los 10 datos oficiales. Los reclamos se conservan en el navegador; para volver a los datos oficiales usa «Modo inspector → Restablecer datos de demostración».
+Con `.env.example` (`VITE_USE_MOCK=true`) funciona sin internet ni claves, con los datos de prueba; los cambios se conservan en el navegador («Modo inspector → Restablecer datos de demostración» vuelve al inicio).
+Para usar la base real: `VITE_USE_MOCK=false` + URL y clave **publicable** de Supabase (y `VITE_CLERK_PUBLISHABLE_KEY` para el login). Base: `supabase/instalar_todo.sql` + `04_roles.sql`; antes de la demo, `05_reiniciar_demo.sql`.
+
+## Modos de compilación
+| Versión | Archivo de configuración | Datos | Login | Modo inspector |
+|---|---|---|---|---|
+| Web publicada (`npm run sitio`) | `.env.web` | Supabase | Clerk primero | Solo profesores |
+| .exe y APK (`npm run exe`, `npm run apk:preparar`) | `.env.production` | Supabase + respaldo local sin internet | No | Oculto |
+| Desarrollo (`npm run dev`) | `.env` | Mock o Supabase | Según `.env` | Según rol |
 
 ## Ejecutable de escritorio y APK
-- **Windows (.exe portable):** `npm run exe` → `release/Encuentralo-0.1.0.exe` (doble clic, no requiere instalación ni internet). Para probar sin empaquetar: `npm run escritorio`.
-- **Android (APK):** se compila en GitHub Actions (flujo *Empaquetar*, en cada push a `main`). Descargar el artifact `Encuentralo-apk`, copiar `app-debug.apk` al celular y permitir "instalar apps de origen desconocido".
-  En local (requiere Android Studio/SDK): `npm run apk:preparar` y luego `cd android && ./gradlew assembleDebug`.
-- Ambos usan el modo demo (`VITE_USE_MOCK=true`): funcionan sin internet y conservan los reclamos en el dispositivo.
+- **Windows (.exe portable):** `npm run exe` → `release/Encuentralo-0.1.0.exe` (doble clic, no requiere instalación). Para probar sin empaquetar: `npm run escritorio`.
+- **Android (APK):** se compila en GitHub Actions (flujo *Empaquetar*, en cada push a `main`) y se publica en el Release. En local con Android Studio: ver `docs/ANDROID_STUDIO.md`.
 
 ## Cambios rápidos en la defensa
 Si el jurado pide un cambio, se edita el código y se muestra así (tiempos medidos en el PC de desarrollo, Windows 11, 26-11-2026):
@@ -71,4 +87,4 @@ supabase/      esquema SQL con RLS        docs/           ficha, IA, mapa
 ```
 
 ## Datos
-Mock en memoria (por defecto) o Supabase (`VITE_USE_MOCK=false` + URL y clave publicable). Ver `supabase/schema.sql`.
+Supabase (PostgreSQL con RLS, Storage para fotos) en las versiones publicadas; mock local en desarrollo. Ver `supabase/README.md`.

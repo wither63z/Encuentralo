@@ -26,3 +26,21 @@ describe('repositorioMock.marcarEntregado', () => {
     expect((await repositorioMock.obtener(3))?.estado).toBe('Reclamado')
   })
 })
+
+describe('Regla 3: repositorioMock.crearReclamo', () => {
+  beforeEach(() => restablecerDatosDemo())
+  const datos = { nombre: 'Ana Pérez', curso: '2do BGU A', sena: 'Tiene una etiqueta con mi nombre' }
+
+  it('un reclamo válido pasa el objeto a Reclamado y se ve en el listado', async () => {
+    expect(await repositorioMock.crearReclamo(1, datos)).toEqual({ ok: true })
+    const listado = await repositorioMock.listar()
+    expect(listado.find((o) => o.id === 1)?.estado).toBe('Reclamado')
+  })
+
+  it('no permite reclamar dos veces ni reclamar con datos inválidos', async () => {
+    await repositorioMock.crearReclamo(1, datos)
+    expect((await repositorioMock.crearReclamo(1, datos)).ok).toBe(false)
+    expect((await repositorioMock.crearReclamo(2, { ...datos, sena: 'corta' })).ok).toBe(false)
+    expect((await repositorioMock.obtener(2))?.estado).toBe('Disponible')
+  })
+})

@@ -99,8 +99,17 @@
           <p class="meta">Android · Windows · Navegador — datos 100% ficticios</p>
         </div>
 
+        <!-- Logo flotante: al tocarlo aparece la maqueta animada del celular. -->
+        <div class="portada-arte">
+          <button class="logo-flotante" type="button" aria-expanded="false" aria-controls="demo">
+            <span class="halo" aria-hidden="true"></span>
+            <img class="logo-grande" src="./icono-encuentralo.png" alt="" width="280" height="280">
+            <span class="chispa c1" aria-hidden="true">✦</span><span class="chispa c2" aria-hidden="true">✦</span><span class="chispa c3" aria-hidden="true">✦</span>
+            <span class="logo-pista">Toca el logo para ver la app <svg class="ico" aria-hidden="true"><use href="#i-play"/></svg></span>
+          </button>
+
         <!-- Maqueta animada hecha con CSS: no es una captura real. -->
-        <figure class="demo" aria-labelledby="demo-leyenda">
+        <figure class="demo" id="demo" aria-labelledby="demo-leyenda" hidden>
           <div class="telefono" aria-hidden="true">
             <div class="telefono-barra"><span>9:41</span><span class="telefono-isla"></span><span>●●●</span></div>
             <div class="app-cabecera">
@@ -150,7 +159,9 @@
             <svg class="ico ico-play" aria-hidden="true"><use href="#i-play"/></svg>
             <span class="pausa-texto">Pausar animación</span>
           </button>
+          <button class="volver-logo" type="button">Volver al logo</button>
         </figure>
+        </div>
       </div>
       <a class="bajar" href="#como-funciona" aria-label="Bajar a Cómo funciona"><svg class="ico" aria-hidden="true"><use href="#i-abajo"/></svg></a>
     </section>
@@ -400,6 +411,19 @@
           })
         }, { rootMargin: '0px 0px -8% 0px' })
         document.querySelectorAll('.revelar').forEach(function (el) { obs.observe(el) })
+      }
+      var logo = document.querySelector('.logo-flotante')
+      var demo = document.getElementById('demo')
+      var volver = document.querySelector('.volver-logo')
+      function mostrarDemo(ver) {
+        demo.hidden = !ver
+        logo.hidden = ver
+        logo.setAttribute('aria-expanded', String(ver))
+        if (ver) { demo.classList.add('entrando'); volver.focus({ preventScroll: true }) } else { logo.focus({ preventScroll: true }) }
+      }
+      if (logo && demo && volver) {
+        logo.addEventListener('click', function () { mostrarDemo(true) })
+        volver.addEventListener('click', function () { mostrarDemo(false) })
       }
       var boton = document.querySelector('.pausa')
       if (boton && !reducido) {
