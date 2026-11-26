@@ -6,4 +6,6 @@ export interface RepositorioObjetos {
   listar(): Promise<Objeto[]>
   obtener(id: number): Promise<Objeto | null>
   crearReclamo(objetoId: number, datos: DatosReclamo): Promise<ResultadoReclamo>
+  /** Inspector: solo pasa Reclamado → Entregado; en otro caso { ok:false, mensaje }. */
+  marcarEntregado(objetoId: number): Promise<ResultadoReclamo>
 }

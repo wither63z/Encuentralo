@@ -10,6 +10,9 @@ export const MIN_CARACTERES_SENA = 10
 /** Latencia simulada del repositorio mock (ms), para ver estados de carga. */
 export const LATENCIA_MOCK_MS = 300
 
+/** Clave de localStorage donde el mock conserva los datos entre recargas (subir la versión si cambia el formato). */
+export const CLAVE_ALMACEN = 'encuentralo-datos-v1'
+
 /** true por defecto: la app funciona sin Supabase ni Clerk. */
 export const USAR_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'
 
