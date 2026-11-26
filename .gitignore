@@ -9,3 +9,6 @@ secrets/
 *.log
 .DS_Store
 .vercel
+release/
+android/app/build/
+android/.gradle/

@@ -15,6 +15,12 @@ npm run dev -- --host
 Abrir la URL que muestra la terminal (en el celular, la de "Network" en la misma red WiFi).
 Por defecto `VITE_USE_MOCK=true`: funciona sin internet ni claves, con los 10 datos oficiales. Los reclamos se reinician al recargar.
 
+## Ejecutable de escritorio y APK
+- **Windows (.exe portable):** `npm run exe` → `release/Encuentralo-0.1.0.exe` (doble clic, no requiere instalación ni internet). Para probar sin empaquetar: `npm run escritorio`.
+- **Android (APK):** se compila en GitHub Actions (flujo *Empaquetar*, en cada push a `main`). Descargar el artifact `Encuentralo-apk`, copiar `app-debug.apk` al celular y permitir "instalar apps de origen desconocido".
+  En local (requiere Android Studio/SDK): `npm run apk:preparar` y luego `cd android && ./gradlew assembleDebug`.
+- Ambos usan el modo demo (`VITE_USE_MOCK=true`): funcionan sin internet y conservan los reclamos en el dispositivo.
+
 ## Arranque por integrante
 | Persona | Rama | Carpeta que edita | Primero |
 |---|---|---|---|
