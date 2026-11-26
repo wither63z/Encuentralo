@@ -2,3 +2,4 @@
 export * from './inspector/PaginaInspector'
 export * from './inspector/ConteoEstados'
 export * from './quePerdiste/PaginaQuePerdiste'
+export * from './sesion/ControlesSesion'

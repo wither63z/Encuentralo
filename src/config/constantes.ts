@@ -24,7 +24,8 @@ export const USAR_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'
 
 export const CLAVE_CLERK = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ?? ''
 
-export const CLERK_ACTIVO = !USAR_MOCK && CLAVE_CLERK.length > 0
+/** Clerk se activa solo con una clave publicable válida en .env (independiente del modo de datos). */
+export const CLERK_ACTIVO = CLAVE_CLERK.startsWith('pk_')
 
 /** Ruta a la que Clerk regresa tras cerrar sesión (la app no usa router). */
 export const CLERK_URL_TRAS_SALIR = '/'
