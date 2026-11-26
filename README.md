@@ -13,7 +13,7 @@ cp .env.example .env      # en Windows PowerShell: copy .env.example .env
 npm run dev -- --host
 ```
 Abrir la URL que muestra la terminal (en el celular, la de "Network" en la misma red WiFi).
-Por defecto `VITE_USE_MOCK=true`: funciona sin internet ni claves, con los 10 datos oficiales. Los reclamos se reinician al recargar.
+Por defecto `VITE_USE_MOCK=true`: funciona sin internet ni claves, con los 10 datos oficiales. Los reclamos se conservan en el navegador; para volver a los datos oficiales usa «Modo inspector → Restablecer datos de demostración».
 
 ## Ejecutable de escritorio y APK
 - **Windows (.exe portable):** `npm run exe` → `release/Encuentralo-0.1.0.exe` (doble clic, no requiere instalación ni internet). Para probar sin empaquetar: `npm run escritorio`.
