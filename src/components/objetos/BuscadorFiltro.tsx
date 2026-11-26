@@ -8,7 +8,8 @@ export interface BuscadorFiltroProps {
 
 const claseControl = 'min-h-11 w-full rounded-lg border border-borde bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
 
-// Entrada: filtros actuales · Proceso: notifica cada cambio · Salida: búsqueda + 2 selectores.
+// Entrada: filtros actuales · Proceso: copia los filtros cambiando solo el campo editado
+// Salida: caja de búsqueda + selectores de categoría y estado.
 export function BuscadorFiltro({ filtros, onCambio }: BuscadorFiltroProps) {
   return (
     <div className="grid gap-3 sm:grid-cols-[2fr_1fr_1fr]">

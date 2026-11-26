@@ -3,7 +3,8 @@ import type { ReactNode } from 'react'
 import { TEXTOS } from '../../config'
 import { Boton } from './Boton'
 
-// Entrada: mensaje y acción opcional · Salida: aviso de lista vacía o sin resultados.
+// Entrada: mensaje y acción opcional · Proceso: muestra el ícono de búsqueda sin resultados
+// Salida: aviso de lista vacía o sin resultados (regla 6).
 export function EstadoVacio({ mensaje, accion }: { mensaje: string; accion?: ReactNode }) {
   return (
     <div role="status" className="flex flex-col items-center gap-3 rounded-xl border border-borde bg-superficie p-6 text-center">
@@ -14,7 +15,8 @@ export function EstadoVacio({ mensaje, accion }: { mensaje: string; accion?: Rea
   )
 }
 
-// Salida: indicador de carga accesible.
+// Entrada: ninguna · Proceso: muestra un ícono girando y el texto de carga
+// Salida: indicador de carga accesible (role="status").
 export function Cargando() {
   return (
     <div role="status" className="flex items-center justify-center gap-2 p-6 text-texto-suave">
@@ -24,7 +26,8 @@ export function Cargando() {
   )
 }
 
-// Entrada: mensaje y reintento opcional · Salida: aviso de error con botón para reintentar.
+// Entrada: mensaje y reintento opcional · Proceso: muestra el botón solo si hay onReintentar
+// Salida: aviso de error (role="alert") con opción de reintentar.
 export function MensajeError({ mensaje, onReintentar }: { mensaje: string; onReintentar?: () => void }) {
   return (
     <div role="alert" className="flex flex-col items-center gap-3 rounded-xl border border-error bg-superficie p-6 text-center">

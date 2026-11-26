@@ -4,7 +4,8 @@ import type { Estado } from '../../types'
 
 const ICONOS: Record<NombreIconoEstado, LucideIcon> = { CircleCheck, Clock, PackageCheck }
 
-// Entrada: estado · Proceso: busca etiqueta, ícono y color en ESTADOS_UI · Salida: insignia color+ícono+texto.
+// Entrada: estado · Proceso: busca etiqueta, ícono y color en ESTADOS_UI
+// Salida: insignia con color + ícono + texto (nunca solo color).
 export function EstadoBadge({ estado }: { estado: Estado }) {
   const ui = ESTADOS_UI[estado]
   const Icono = ICONOS[ui.icono]

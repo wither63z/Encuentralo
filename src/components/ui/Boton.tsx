@@ -16,7 +16,8 @@ const CLASES: Record<VarianteBoton, string> = {
   texto: 'text-marca underline-offset-4 hover:underline',
 }
 
-// Entrada: variante, estado y contenido · Proceso: aplica clases del tema · Salida: botón ≥44px.
+// Entrada: variante, disabled y contenido · Proceso: aplica las clases de la variante
+// Salida: botón de al menos 44px; si está disabled se ve atenuado y no responde.
 export function Boton({ variante, disabled, onClick, children, tipo = 'button' }: BotonProps) {
   return (
     <button
