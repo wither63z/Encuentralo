@@ -33,9 +33,9 @@ describe('Reglas 4 y 5: validarReclamo', () => {
     const errores = validarReclamo({ nombre: ' ', curso: '', sena: '' })
     expect(Object.keys(errores).sort()).toEqual(['curso', 'nombre', 'sena'])
   })
-  it('rechaza seña de 9 caracteres e indica cuántos lleva', () => {
+  it('rechaza seña de 9 caracteres e indica cuántos faltan', () => {
     const errores = validarReclamo({ ...base, sena: '123456789' })
-    expect(errores.sena).toContain('9')
+    expect(errores.sena).toContain('Te faltan 1')
   })
   it('acepta seña de 10 caracteres', () => {
     expect(esReclamoValido(validarReclamo({ ...base, sena: '1234567890' }))).toBe(true)

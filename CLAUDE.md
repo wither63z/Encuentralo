@@ -27,3 +27,6 @@ Ver `src/types/index.ts`, `src/services/RepositorioObjetos.ts`, barrels `src/*/i
 ## Reglas del jurado (no romper)
 1. Estados Disponible/Reclamado/Entregado. 2. Solo se reclama lo Disponible. 3. Reclamo válido → Reclamado, visible en el listado.
 4. Nombre, curso y seña obligatorios; seña ≥ 10. 5. Si falla, no se registra y se explica. 6. Búsqueda sin resultados muestra mensaje.
+
+## Skills del proyecto (`.claude/skills/`, solo por pedido explícito)
+`grill-me`/`grilling` (mattpocock/skills, MIT) y `design-system` (tokens propios + referencia de nexu-io/open-design, Apache-2.0). Versiones fijadas en `design-system/SKILL.md`.

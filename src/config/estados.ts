@@ -10,9 +10,10 @@ export interface EstadoUI {
   clases: string
 }
 
+// Fondo claro + texto oscuro (propuesta del Whimsical, contraste AA). Coral queda solo para errores.
 // Mapeo estado → presentación. Cambiar un color de estado = tocar solo este archivo.
 export const ESTADOS_UI: Record<Estado, EstadoUI> = {
   Disponible: { etiqueta: 'Disponible', icono: 'CircleCheck', clases: 'bg-marca-suave text-marca' },
-  Reclamado: { etiqueta: 'Reclamado', icono: 'Clock', clases: 'bg-alerta text-texto' },
-  Entregado: { etiqueta: 'Entregado', icono: 'PackageCheck', clases: 'bg-exito text-texto' },
+  Reclamado: { etiqueta: 'Reclamado', icono: 'Clock', clases: 'bg-alerta/20 text-texto' },
+  Entregado: { etiqueta: 'Entregado', icono: 'PackageCheck', clases: 'bg-exito/20 text-texto' },
 }
