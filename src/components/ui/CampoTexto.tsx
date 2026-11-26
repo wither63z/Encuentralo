@@ -35,7 +35,7 @@ export function CampoTexto({ id, etiqueta, valor, onChange, error, multilinea, m
         <input {...props} type="text" onChange={(e) => onChange(e.target.value)} />
       )}
       <div id={idAyuda} className="flex justify-between gap-2 text-sm">
-        <span className={error ? 'text-error' : 'text-texto-suave'}>{error ?? ayuda ?? ''}</span>
+        <span aria-live="polite" className={error ? 'text-error' : 'text-texto-suave'}>{error ?? ayuda ?? ''}</span>
         {minimo !== undefined && (
           <span className={largo >= minimo ? 'text-texto-suave' : 'text-error'}>
             {textoContador ? textoContador(largo) : `${largo}/${minimo}`}

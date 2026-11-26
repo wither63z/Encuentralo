@@ -27,7 +27,7 @@ export function DetalleObjeto({ objeto, onReclamar, onVolver }: DetalleObjetoPro
       <Boton variante="texto" onClick={onVolver}><ArrowLeft size={18} aria-hidden="true" />{TEXTOS.acciones.volverListado}</Boton>
       <div className="flex items-center gap-4">
         <span className="grid size-20 place-items-center rounded-xl bg-marca-suave"><CategoriaIcono categoria={objeto.categoria} tamano={40} /></span>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-start gap-2">
           <h1 className="text-2xl font-bold">{objeto.nombre}</h1>
           <EstadoBadge estado={objeto.estado} />
         </div>
@@ -37,8 +37,9 @@ export function DetalleObjeto({ objeto, onReclamar, onVolver }: DetalleObjetoPro
           <div key={etiqueta}><dt className="text-sm text-texto-suave">{etiqueta}</dt><dd className="font-semibold">{valor}</dd></div>
         ))}
       </dl>
-      <Boton variante="primario" disabled={!puedeReclamar(objeto)} onClick={onReclamar}>{TEXTOS.acciones.reclamar}</Boton>
-      {razon && <p className="text-sm text-texto-suave" role="note">{razon}</p>}
+      <Boton variante="primario" disabled={!puedeReclamar(objeto)} onClick={onReclamar}
+        describidoPor={razon ? 'razon-no-reclamable' : undefined}>{TEXTOS.acciones.reclamar}</Boton>
+      {razon && <p id="razon-no-reclamable" className="text-sm text-texto-suave" role="note">{razon}</p>}
     </article>
   )
 }

@@ -7,6 +7,9 @@ export interface NavbarProps {
   onIr: (vista: Vista) => void
 }
 
+/** Vistas que pertenecen a la sección «Objetos»: el menú la marca activa en todas. */
+const VISTAS_DE_OBJETOS: readonly Vista['tipo'][] = ['listado', 'detalle', 'reclamo', 'confirmacion']
+
 // Entrada: vista actual y función para navegar · Proceso: marca la opción activa
 // Salida: barra superior con logo y menú (Inicio, Objetos e Ingresar si hay login).
 export function Navbar({ vistaActual, onIr }: NavbarProps) {
@@ -25,6 +28,7 @@ export function Navbar({ vistaActual, onIr }: NavbarProps) {
         <ul className="flex gap-1">
           {opciones.map(({ etiqueta, vista }) => {
             const activa = vista.tipo === vistaActual.tipo
+              || (vista.tipo === 'listado' && VISTAS_DE_OBJETOS.includes(vistaActual.tipo))
             return (
               <li key={etiqueta}>
                 <button type="button" aria-current={activa ? 'page' : undefined} onClick={() => onIr(vista)}
