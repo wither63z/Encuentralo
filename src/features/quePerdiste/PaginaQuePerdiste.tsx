@@ -7,10 +7,10 @@ import {
   type Coincidencia, type DescripcionPerdida,
 } from '../coincidencias'
 
-// Entrada: acción para abrir un objeto · Proceso: carga los objetos y, al buscar, calcula
-// las 3 coincidencias Disponibles más parecidas · Salida: formulario + resultados.
 const T = TEXTOS.coincidencias
 
+// Entrada: acción para abrir un objeto · Proceso: carga los objetos y, al buscar, calcula
+// las 3 coincidencias Disponibles más parecidas · Salida: formulario + resultados.
 export function PaginaQuePerdiste({ onAbrir }: { onAbrir: (id: number) => void }) {
   const { objetos, cargando, error, reintentar } = useObjetos()
   const [coincidencias, setCoincidencias] = useState<Coincidencia[]>([])
