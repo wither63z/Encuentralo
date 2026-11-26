@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "verificar": "node scripts/verificar-lineas.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verificar:supabase": "node --env-file-if-exists=.env scripts/verificar-supabase.mjs"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.12",
