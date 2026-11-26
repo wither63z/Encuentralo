@@ -1,6 +1,8 @@
 import { CategoriaIcono, Boton, EstadoBadge, EstadoVacio } from '../../components'
+import { TEXTOS } from '../../config'
 import type { Coincidencia } from './calcularCoincidencia'
-import { TEXTOS_COINCIDENCIAS as T } from './textosCoincidencias'
+
+const T = TEXTOS.coincidencias
 
 export interface ResultadosCoincidenciasProps {
   coincidencias: Coincidencia[]

@@ -1,9 +1,10 @@
 import { useState, type FormEvent } from 'react'
 import { Boton, CampoTexto } from '../../components'
-import { CATEGORIAS } from '../../config'
+import { CATEGORIAS, TEXTOS } from '../../config'
 import type { Categoria } from '../../types'
 import type { DescripcionPerdida } from './calcularCoincidencia'
-import { TEXTOS_COINCIDENCIAS as T } from './textosCoincidencias'
+
+const T = TEXTOS.coincidencias
 
 export interface FormularioPerdidaProps {
   onBuscar: (descripcion: DescripcionPerdida) => void
