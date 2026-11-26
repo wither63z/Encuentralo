@@ -11,7 +11,7 @@ export interface BotonProps {
 }
 
 const CLASES: Record<VarianteBoton, string> = {
-  primario: 'bg-marca text-white hover:opacity-90',
+  primario: 'bg-marca text-superficie hover:opacity-90',
   secundario: 'bg-superficie text-marca border border-marca hover:bg-marca-suave',
   texto: 'text-marca underline-offset-4 hover:underline',
 }
