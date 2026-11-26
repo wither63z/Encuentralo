@@ -28,5 +28,9 @@ export function PaginaReclamo({ id, onResultado, onCancelar }: PaginaReclamoProp
       </div>
     )
   }
-  return <FormularioReclamo objeto={objeto} enviando={enviando} onCancelar={onCancelar} onEnviar={(d) => void manejarEnvio(d)} />
+  return (
+    <div className="animar-entrada mx-auto max-w-2xl py-2 md:py-6">
+      <FormularioReclamo objeto={objeto} enviando={enviando} onCancelar={onCancelar} onEnviar={(d) => void manejarEnvio(d)} />
+    </div>
+  )
 }

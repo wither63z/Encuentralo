@@ -20,5 +20,9 @@ export function PaginaDetalle({ id, onReclamar, onVolver }: PaginaDetalleProps) 
       </div>
     )
   }
-  return <DetalleObjeto objeto={objeto} onReclamar={() => onReclamar(objeto.id)} onVolver={onVolver} />
+  return (
+    <div className="animar-entrada mx-auto max-w-2xl py-2 md:py-6">
+      <DetalleObjeto objeto={objeto} onReclamar={() => onReclamar(objeto.id)} onVolver={onVolver} />
+    </div>
+  )
 }

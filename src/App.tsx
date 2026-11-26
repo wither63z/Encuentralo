@@ -30,7 +30,7 @@ export default function App() {
       <main id="contenido-principal" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-6 outline-none">
         {renderizarVista(vista)}
       </main>
-      {(vista.tipo === 'inicio' || vista.tipo === 'listado') && <BotonReportar onReportar={() => irA({ tipo: 'reportar' })} />}
+      {vista.tipo === 'listado' && <BotonReportar onReportar={() => irA({ tipo: 'reportar' })} />}
       <footer aria-label={TEXTOS.pie.etiqueta} className="border-t border-borde bg-superficie">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 pb-20 pt-2">
           <ControlesSesion />
@@ -45,11 +45,12 @@ export default function App() {
   function renderizarVista(actual: Vista) {
     switch (actual.tipo) {
       case 'inicio':
-        return <PaginaInicio onVerObjetos={() => irA({ tipo: 'listado' })} />
+        return <PaginaInicio onVerObjetos={() => irA({ tipo: 'listado' })} onReportar={() => irA({ tipo: 'reportar' })}
+          onQuePerdiste={() => irA({ tipo: 'coincidencias' })} />
       case 'login':
         return <PaginaLogin onVolver={volver} />
       case 'listado':
-        return <PaginaListado onAbrir={(id) => irA({ tipo: 'detalle', id })} />
+        return <PaginaListado onAbrir={(id) => irA({ tipo: 'detalle', id })} onVolver={() => irA({ tipo: 'inicio' })} />
       case 'detalle':
         return <PaginaDetalle id={actual.id} onReclamar={irAReclamo} onVolver={() => irA({ tipo: 'listado' })} />
       case 'reclamo':
