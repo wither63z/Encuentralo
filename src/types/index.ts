@@ -13,6 +13,27 @@ export interface Objeto {
   fecha: string
   estado: Estado
   descripcion: string
+  /** Foto del objeto: URL pública (Supabase) o data URL JPEG comprimida (modo demo). */
+  foto?: string
+}
+
+/** Datos del formulario «Reportar objeto encontrado». */
+export interface DatosNuevoObjeto {
+  nombre: string
+  categoria: Categoria | ''
+  lugar: string
+  fecha: string
+  descripcion: string
+  foto?: string
+}
+
+export type ErroresNuevoObjeto = Partial<Record<keyof DatosNuevoObjeto, string>>
+
+export interface ResultadoReporte {
+  ok: boolean
+  id?: number
+  mensaje?: string
+  errores?: ErroresNuevoObjeto
 }
 
 export interface DatosReclamo {
@@ -45,6 +66,7 @@ export type Vista =
   | { tipo: 'confirmacion'; resultado: 'exito' | 'error' }
   | { tipo: 'inspector' }
   | { tipo: 'coincidencias' }
+  | { tipo: 'reportar' }
 
 export interface Usuario {
   id: string

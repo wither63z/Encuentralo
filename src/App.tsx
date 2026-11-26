@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Boton, Navbar } from './components'
 import { TEXTOS } from './config'
-import { ControlesSesion, PaginaInspector, PaginaQuePerdiste } from './features'
+import { ControlesSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar } from './features'
 import { useNavegacion } from './hooks'
 import {
   PaginaConfirmacion, PaginaDetalle, PaginaInicio, PaginaListado, PaginaLogin, PaginaReclamo,
@@ -33,6 +33,7 @@ export default function App() {
       <footer aria-label={TEXTOS.pie.etiqueta} className="border-t border-borde bg-superficie">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 py-2">
           <ControlesSesion />
+          <Boton variante="texto" onClick={() => irA({ tipo: 'reportar' })}>{TEXTOS.pie.reportar}</Boton>
           <Boton variante="texto" onClick={() => irA({ tipo: 'coincidencias' })}>{TEXTOS.pie.quePerdiste}</Boton>
           <Boton variante="texto" onClick={() => irA({ tipo: 'inspector' })}>{TEXTOS.pie.modoInspector}</Boton>
         </div>
@@ -56,6 +57,8 @@ export default function App() {
         return <PaginaConfirmacion resultado={actual.resultado} mensaje={mensajeResultado} onVolverListado={() => irA({ tipo: 'listado' })} />
       case 'inspector':
         return <PaginaInspector />
+      case 'reportar':
+        return <PaginaReportar onCancelar={volver} onRegistrado={(id) => irA({ tipo: 'detalle', id })} />
       case 'coincidencias':
         return <PaginaQuePerdiste onAbrir={(id) => irA({ tipo: 'detalle', id })} />
     }

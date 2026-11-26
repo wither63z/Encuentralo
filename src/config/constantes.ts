@@ -10,6 +10,16 @@ export const MIN_CARACTERES_SENA = 10
 /** Límites máximos (iguales a los checks de supabase/schema.sql) para evitar textos abusivos. */
 export const MAX_CARACTERES = { nombre: 80, curso: 40, sena: 300 } as const
 
+/** Fotos: lado máximo en px y calidad JPEG al comprimir; tamaño máximo aceptado del data URL. */
+export const FOTO = { maxLado: 800, calidad: 0.7, maxCaracteres: 400_000 } as const
+
+/** Límites del formulario «Reportar objeto encontrado» (iguales a supabase/03_fotos.sql). */
+export const LIMITES_REPORTE = {
+  nombre: { min: 3, max: 80 },
+  lugar: { min: 2, max: 60 },
+  descripcion: { min: 10, max: 300 },
+} as const
+
 /** Latencia simulada del repositorio mock (ms), para ver estados de carga. */
 export const LATENCIA_MOCK_MS = 300
 

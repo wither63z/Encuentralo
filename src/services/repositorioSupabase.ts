@@ -2,9 +2,11 @@ import { TEXTOS } from '../config'
 import type { Objeto } from '../types'
 import { esReclamoValido, validarReclamo } from '../utils'
 import type { RepositorioObjetos } from './RepositorioObjetos'
+import { reportarObjetoSupabase } from './reportarSupabase'
 import { obtenerClienteSupabase } from './supabaseCliente'
 
-const COLUMNAS = 'id, nombre, categoria, lugar, fecha, estado, descripcion'
+// foto_url se expone como "foto" para cumplir el tipo Objeto.
+const COLUMNAS = 'id, nombre, categoria, lugar, fecha, estado, descripcion, foto:foto_url'
 
 export const repositorioSupabase: RepositorioObjetos = {
   // Entrada: nada · Proceso: select público a la tabla objetos · Salida: lista ordenada por id.
@@ -43,4 +45,6 @@ export const repositorioSupabase: RepositorioObjetos = {
     if (error) return { ok: false, mensaje: TEXTOS.errores.entregar }
     return data === true ? { ok: true } : { ok: false, mensaje: TEXTOS.errores.noReclamado }
   },
+
+  reportarObjeto: reportarObjetoSupabase,
 }

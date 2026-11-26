@@ -1,4 +1,5 @@
 import { MIN_CARACTERES_SENA } from './constantes'
+import { TEXTOS_REPORTAR } from './textosReportar'
 
 // Todo texto visible en pantalla vive aquí. Cambiar un texto = tocar solo este archivo.
 export const TEXTOS = {
@@ -104,6 +105,7 @@ export const TEXTOS = {
   pie: {
     modoInspector: 'Modo inspector',
     quePerdiste: '¿Qué perdiste?',
+    reportar: 'Reportar objeto encontrado',
     etiqueta: 'Herramientas de la demostración',
   },
   coincidencias: {
@@ -121,5 +123,6 @@ export const TEXTOS = {
     puntos: 'puntos',
     verDetalle: 'Ver detalle',
   },
+  reportar: TEXTOS_REPORTAR,
   cargando: 'Cargando…',
 } as const

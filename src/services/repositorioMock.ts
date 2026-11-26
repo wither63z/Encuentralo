@@ -1,7 +1,7 @@
 import { LATENCIA_MOCK_MS, TEXTOS } from '../config'
 import { OBJETOS_PRUEBA } from '../data'
 import type { Objeto } from '../types'
-import { esReclamoValido, puedeEntregar, puedeReclamar, validarReclamo } from '../utils'
+import { esReclamoValido, hoyIso, puedeEntregar, puedeReclamar, validarNuevoObjeto, validarReclamo } from '../utils'
 import { borrarAlmacen, guardarAlmacen, leerAlmacen } from './almacenLocal'
 import type { RepositorioObjetos } from './RepositorioObjetos'
 
@@ -56,5 +56,23 @@ export const repositorioMock: RepositorioObjetos = {
     objeto.estado = 'Entregado'
     guardarAlmacen(almacen)
     return { ok: true }
+  },
+
+  // Entrada: datos del objeto encontrado · Proceso: valida, asigna el siguiente id y lo agrega
+  // como Disponible · Salida: { ok, id } (con aviso si la foto no cupo en el dispositivo).
+  async reportarObjeto(datos) {
+    await esperar()
+    const errores = validarNuevoObjeto(datos, hoyIso())
+    if (Object.keys(errores).length > 0) return { ok: false, errores, mensaje: TEXTOS.reportar.errores.enviar }
+    if (datos.categoria === '') return { ok: false, mensaje: TEXTOS.reportar.errores.categoria }
+    const id = Math.max(0, ...almacen.map((o) => o.id)) + 1
+    const nuevo: Objeto = {
+      id, nombre: datos.nombre.trim(), categoria: datos.categoria, lugar: datos.lugar.trim(),
+      fecha: datos.fecha, estado: 'Disponible', descripcion: datos.descripcion.trim(),
+      ...(datos.foto ? { foto: datos.foto } : {}),
+    }
+    almacen.push(nuevo)
+    if (guardarAlmacen(almacen)) return { ok: true, id }
+    return { ok: true, id, mensaje: TEXTOS.reportar.errores.fotoNoGuardada }
   },
 }

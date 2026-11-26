@@ -73,10 +73,10 @@ function revisarIgnorados(archivos) {
   }
 }
 
-// Entrada: nada · Proceso: ejecuta `npm audit --json` y lee metadata.vulnerabilities
+// Entrada: nada · Proceso: ejecuta `npm audit --omit=dev --json` (solo lo que se entrega) y lee metadata.vulnerabilities
 // Salida: resumen por severidad y hallazgos si hay críticas/altas.
 function revisarDependencias() {
-  const { salida, error } = ejecutar('npm audit --json')
+  const { salida, error } = ejecutar('npm audit --omit=dev --json')
   let datos
   try { datos = JSON.parse(salida) } catch { datos = null }
   const conteo = datos?.metadata?.vulnerabilities

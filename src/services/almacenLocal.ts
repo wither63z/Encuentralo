@@ -38,13 +38,15 @@ export function leerAlmacen(): Objeto[] | null {
   }
 }
 
-// Entrada: lista de objetos · Proceso: la guarda como JSON · Salida: nada (falla en silencio).
-export function guardarAlmacen(objetos: readonly Objeto[]): void {
-  if (!hayLocalStorage()) return
+// Entrada: lista de objetos · Proceso: la guarda como JSON · Salida: true si se guardó.
+export function guardarAlmacen(objetos: readonly Objeto[]): boolean {
+  if (!hayLocalStorage()) return true
   try {
     localStorage.setItem(CLAVE_ALMACEN, JSON.stringify(objetos))
+    return true
   } catch {
-    // Cuota llena o modo privado: se sigue trabajando solo en memoria.
+    // Cuota llena (fotos) o modo privado: se sigue trabajando solo en memoria.
+    return false
   }
 }
 
