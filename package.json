@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "verificar": "node scripts/verificar-lineas.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "auditar": "node scripts/auditar-seguridad.mjs"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.12",
