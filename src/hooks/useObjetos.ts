@@ -26,5 +26,5 @@ export function useObjetos() {
     void cargar()
   }, [cargar])
 
-  return { objetos, cargando, error, reintentar: cargar }
+  return { objetos, cargando, error, reintentar: cargar, recargar: cargar }
 }

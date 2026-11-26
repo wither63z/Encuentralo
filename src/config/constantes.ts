@@ -13,6 +13,9 @@ export const MAX_CARACTERES = { nombre: 80, curso: 40, sena: 300 } as const
 /** Latencia simulada del repositorio mock (ms), para ver estados de carga. */
 export const LATENCIA_MOCK_MS = 300
 
+/** true: el modo demo conserva los reclamos al recargar (opcional "para destacar"); false: cada recarga reinicia los datos. */
+export const CONSERVAR_DATOS_DEMO = true
+
 /** Clave de localStorage donde el mock conserva los datos entre recargas (subir la versión si cambia el formato). */
 export const CLAVE_ALMACEN = 'encuentralo-datos-v2'
 
