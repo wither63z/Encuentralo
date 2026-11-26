@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Boton, Navbar } from './components'
 import { TEXTOS } from './config'
-import { BotonReportar, ControlesSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar } from './features'
+import { BotonReportar, ControlesSesion, PuertaSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar } from './features'
 import { useNavegacion } from './hooks'
 import {
   PaginaConfirmacion, PaginaDetalle, PaginaInicio, PaginaListado, PaginaLogin, PaginaReclamo,
@@ -25,6 +25,7 @@ export default function App() {
   }
 
   return (
+    <PuertaSesion>
     <div className="min-h-dvh bg-fondo text-texto">
       <Navbar vistaActual={vista} onIr={irA} />
       <main id="contenido-principal" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-6 outline-none">
@@ -40,6 +41,7 @@ export default function App() {
         </div>
       </footer>
     </div>
+    </PuertaSesion>
   )
 
   function renderizarVista(actual: Vista) {
