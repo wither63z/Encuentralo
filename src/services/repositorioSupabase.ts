@@ -1,0 +1,38 @@
+import { TEXTOS } from '../config'
+import type { Objeto } from '../types'
+import { esReclamoValido, validarReclamo } from '../utils'
+import type { RepositorioObjetos } from './RepositorioObjetos'
+import { obtenerClienteSupabase } from './supabaseCliente'
+
+const COLUMNAS = 'id, nombre, categoria, lugar, fecha, estado, descripcion'
+
+export const repositorioSupabase: RepositorioObjetos = {
+  // Entrada: nada · Proceso: select público a la tabla objetos · Salida: lista ordenada por id.
+  async listar() {
+    const { data, error } = await obtenerClienteSupabase().from('objetos').select(COLUMNAS).order('id')
+    if (error) throw new Error(TEXTOS.errores.cargar)
+    return (data ?? []) as Objeto[]
+  },
+
+  // Entrada: id · Proceso: select de una fila · Salida: objeto o null.
+  async obtener(id) {
+    const { data, error } = await obtenerClienteSupabase()
+      .from('objetos').select(COLUMNAS).eq('id', id).maybeSingle()
+    if (error) throw new Error(TEXTOS.errores.cargar)
+    return (data as Objeto | null) ?? null
+  },
+
+  // Entrada: id y datos · Proceso: llama a la función reclamar_objeto (cambia estado e inserta
+  // el reclamo solo si estaba Disponible) · Salida: { ok } o { ok:false, mensaje }.
+  async crearReclamo(objetoId, datos) {
+    if (!esReclamoValido(validarReclamo(datos))) return { ok: false, mensaje: TEXTOS.confirmacion.textoError }
+    const { data, error } = await obtenerClienteSupabase().rpc('reclamar_objeto', {
+      p_objeto: objetoId,
+      p_nombre: datos.nombre.trim(),
+      p_curso: datos.curso.trim(),
+      p_sena: datos.sena.trim(),
+    })
+    if (error) return { ok: false, mensaje: TEXTOS.errores.enviar }
+    return data === true ? { ok: true } : { ok: false, mensaje: TEXTOS.errores.noDisponible }
+  },
+}

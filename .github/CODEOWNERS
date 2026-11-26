@@ -1,0 +1,21 @@
+# Reparto de carpetas (cada quien edita solo lo suyo). Reemplazar @usuarios por los de GitHub reales.
+*                       @wither63z
+/src/types/             @wither63z
+/src/config/            @wither63z
+/src/utils/             @wither63z
+/src/services/          @wither63z
+/src/hooks/             @wither63z
+/src/App.tsx            @wither63z
+/src/main.tsx           @wither63z
+/scripts/               @wither63z
+/supabase/              @wither63z
+/.github/               @wither63z
+# Gabriel: reemplazar GABRIEL_GITHUB por su usuario
+/src/components/        @wither63z
+/src/data/              @wither63z
+/docs/                  @wither63z
+# Mister: reemplazar MISTER_GITHUB por su usuario
+/src/pages/             @wither63z
+/src/index.css          @wither63z
+/public/                @wither63z
+# Gabriel = components/, data/, docs/ · Mister = pages/, index.css, public/ · features/ = por definir

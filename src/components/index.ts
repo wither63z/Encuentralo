@@ -1,0 +1,13 @@
+// Barrel de componentes presentacionales (props-only, sin fetch ni estado global). Dueño: Gabriel.
+export * from './ui/Boton'
+export * from './ui/CampoTexto'
+export * from './ui/EstadoBadge'
+export * from './ui/CategoriaIcono'
+export * from './ui/Estados'
+export * from './layout/Navbar'
+export * from './objetos/ObjetoCard'
+export * from './objetos/ListaObjetos'
+export * from './objetos/BuscadorFiltro'
+export * from './objetos/DetalleObjeto'
+export * from './reclamo/FormularioReclamo'
+export * from './reclamo/Confirmacion'
