@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "verificar": "node scripts/verificar-lineas.mjs",
     "test": "vitest run",
-    "auditar": "node scripts/auditar-seguridad.mjs"
+    "auditar": "node scripts/auditar-seguridad.mjs",
+    "verificar:supabase": "node --env-file-if-exists=.env scripts/verificar-supabase.mjs"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.61.12",

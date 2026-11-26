@@ -22,3 +22,9 @@ export const USAR_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'
 export const CLAVE_CLERK = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ?? ''
 
 export const CLERK_ACTIVO = !USAR_MOCK && CLAVE_CLERK.length > 0
+
+/** Ruta a la que Clerk regresa tras cerrar sesión (la app no usa router). */
+export const CLERK_URL_TRAS_SALIR = '/'
+
+/** Máximo de reclamos por cuenta de Clerk; debe coincidir con supabase/02_clerk.sql. */
+export const MAX_RECLAMOS_POR_USUARIO = 3
