@@ -44,11 +44,11 @@ function esRechazo({ data, error }) {
   return { ok: data === false, detalle: `devolvió ${JSON.stringify(data)}` }
 }
 
-await probar('select objetos devuelve los 10 oficiales', async () => {
+await probar('select objetos incluye los 10 oficiales (más extras ficticios)', async () => {
   const { data, error } = await supabase.from('objetos').select('id').order('id')
   if (error) return { ok: false, detalle: `error ${error.code ?? '?'}: ${error.message}` }
   const ids = (data ?? []).map((fila) => Number(fila.id))
-  const ok = ids.length === 10 && IDS_OFICIALES.every((id, i) => ids[i] === id)
+  const ok = IDS_OFICIALES.every((id) => ids.includes(id))
   return { ok, detalle: `${ids.length} filas` }
 })
 
