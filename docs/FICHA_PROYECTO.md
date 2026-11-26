@@ -13,7 +13,7 @@
   3. Ver el detalle completo con ícono de categoría y botón «Reclamar» (solo si está Disponible).
   4. Registrar un reclamo de prueba (nombre, curso y seña de al menos 10 caracteres) y recibir confirmación.
   5. Innovación «¿Qué perdiste?»: el estudiante describe su objeto y la app sugiere los 3 objetos Disponibles más parecidos, con puntaje y razones.
-- **Plataforma:** Web (responsive, móvil y escritorio)
+- **Plataforma:** Web responsive (móvil y escritorio), también empaquetada como .exe (Windows) y APK (Android).
 - **Tecnologías:** Vite, React, TypeScript, Tailwind CSS, lucide-react (opcional: Supabase, Clerk)
 - **Dónde se guardan los datos:** en memoria (modo demo, por defecto) o Supabase.
 - **Cómo ejecutar:** ver README.md, sección "Cómo ejecutar el proyecto".

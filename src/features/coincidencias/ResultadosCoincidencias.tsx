@@ -8,13 +8,19 @@ export interface ResultadosCoincidenciasProps {
   coincidencias: Coincidencia[]
   buscado: boolean
   onAbrir: (id: number) => void
+  /** Si se pasa, el aviso de "sin resultados" muestra un botón para ir al listado. */
+  onVerListado?: () => void
 }
 
-// Entrada: coincidencias, si ya se buscó y onAbrir · Proceso: decide entre aviso vacío o tarjetas
-// Salida: lista con puntaje y razones, o mensaje de "sin resultados".
-export function ResultadosCoincidencias({ coincidencias, buscado, onAbrir }: ResultadosCoincidenciasProps) {
+// Entrada: coincidencias, si ya se buscó y acciones · Proceso: decide entre aviso vacío o tarjetas
+// Salida: lista con puntaje y razones, o "sin resultados" con botón al listado.
+export function ResultadosCoincidencias({ coincidencias, buscado, onAbrir, onVerListado }: ResultadosCoincidenciasProps) {
   if (!buscado) return null
-  if (coincidencias.length === 0) return <EstadoVacio mensaje={T.sinResultados} />
+  if (coincidencias.length === 0) {
+    const botonListado = onVerListado
+      && <Boton variante="primario" onClick={onVerListado}>{TEXTOS.acciones.verObjetos}</Boton>
+    return <EstadoVacio mensaje={T.sinResultados} accion={botonListado} />
+  }
 
   return (
     <section aria-labelledby="titulo-coincidencias" className="flex flex-col gap-3">
