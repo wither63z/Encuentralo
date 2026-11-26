@@ -1,6 +1,8 @@
 import { CategoriaIcono, Boton, EstadoBadge, EstadoVacio } from '../../components'
 import { TEXTOS } from '../../config'
-import type { Coincidencia } from './calcularCoincidencia'
+import type { Objeto } from '../../types'
+import { DondeBuscar } from '../radar'
+import type { Coincidencia, DescripcionPerdida } from './calcularCoincidencia'
 
 const T = TEXTOS.coincidencias
 
@@ -10,16 +12,25 @@ export interface ResultadosCoincidenciasProps {
   onAbrir: (id: number) => void
   /** Si se pasa, el aviso de "sin resultados" muestra un botón para ir al listado. */
   onVerListado?: () => void
+  objetos?: readonly Objeto[]
+  descripcion?: DescripcionPerdida
 }
 
-// Entrada: coincidencias, si ya se buscó y acciones · Proceso: decide entre aviso vacío o tarjetas
-// Salida: lista con puntaje y razones, o "sin resultados" con botón al listado.
-export function ResultadosCoincidencias({ coincidencias, buscado, onAbrir, onVerListado }: ResultadosCoincidenciasProps) {
+// Entrada: coincidencias, datos de búsqueda y acciones · Proceso: decide entre aviso vacío o tarjetas
+// Salida: lista con puntaje y razones, o aviso con botón al listado y lugares sugeridos si se pueden calcular.
+export function ResultadosCoincidencias({
+  coincidencias, buscado, onAbrir, onVerListado, objetos, descripcion,
+}: ResultadosCoincidenciasProps) {
   if (!buscado) return null
   if (coincidencias.length === 0) {
     const botonListado = onVerListado
       && <Boton variante="primario" onClick={onVerListado}>{T.verListado}</Boton>
-    return <EstadoVacio mensaje={T.sinResultados} accion={botonListado} />
+    return (
+      <>
+        <EstadoVacio mensaje={T.sinResultados} accion={botonListado} />
+        {objetos && descripcion && <DondeBuscar objetos={objetos} descripcion={descripcion} />}
+      </>
+    )
   }
 
   return (

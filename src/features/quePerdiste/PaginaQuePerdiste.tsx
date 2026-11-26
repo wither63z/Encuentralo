@@ -14,11 +14,13 @@ const T = TEXTOS.coincidencias
 export function PaginaQuePerdiste({ onAbrir, onVerListado }: { onAbrir: (id: number) => void; onVerListado?: () => void }) {
   const { objetos, cargando, error, reintentar } = useObjetos()
   const [coincidencias, setCoincidencias] = useState<Coincidencia[]>([])
-  const [buscado, setBuscado] = useState(false)
+  const [descripcionBuscada, setDescripcionBuscada] = useState<DescripcionPerdida | undefined>(undefined)
 
+  // Entrada: descripción enviada · Proceso: guarda la descripción y calcula las coincidencias
+  // Salida: actualiza el estado de la búsqueda.
   function buscar(descripcion: DescripcionPerdida) {
     setCoincidencias(buscarCoincidencias(objetos, descripcion))
-    setBuscado(true)
+    setDescripcionBuscada(descripcion)
   }
 
   if (cargando) return <Cargando />
@@ -28,7 +30,14 @@ export function PaginaQuePerdiste({ onAbrir, onVerListado }: { onAbrir: (id: num
       <h1 className="font-display text-2xl font-bold">{T.titulo}</h1>
       <p className="text-texto-suave">{T.explicacion}</p>
       <FormularioPerdida onBuscar={buscar} />
-      <ResultadosCoincidencias coincidencias={coincidencias} buscado={buscado} onAbrir={onAbrir} onVerListado={onVerListado} />
+      <ResultadosCoincidencias
+        coincidencias={coincidencias}
+        buscado={descripcionBuscada !== undefined}
+        onAbrir={onAbrir}
+        onVerListado={onVerListado}
+        objetos={objetos}
+        descripcion={descripcionBuscada}
+      />
     </section>
   )
 }

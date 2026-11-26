@@ -128,6 +128,8 @@ export const TEXTOS = {
     buscar: 'Buscar coincidencias',
     tituloResultados: 'Los más parecidos',
     sinResultados: 'No encontramos objetos parecidos. Revisa el listado completo.',
+    dondeBuscarTitulo: '¿Dónde buscar?',
+    dondeBuscarAyuda: 'Puedes preguntar en estos lugares. La lista indica cuántos objetos se encontraron en cada uno.',
     verListado: 'Ver el listado completo',
     puntos: 'puntos',
     verDetalle: 'Ver detalle',
