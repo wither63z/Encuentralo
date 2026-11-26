@@ -65,7 +65,7 @@ export const TEXTOS = {
     senaVacia: 'Describe una seña del objeto.',
     muyLargo: (maximo: number) => `Es demasiado largo: usa como máximo ${maximo} caracteres.`,
     senaCorta: (lleva: number) =>
-      `Escribe al menos ${MIN_CARACTERES_SENA} caracteres. Te faltan ${MIN_CARACTERES_SENA - lleva}.`,
+      `Escribe al menos ${MIN_CARACTERES_SENA} caracteres. ${MIN_CARACTERES_SENA - lleva === 1 ? 'Te falta 1' : `Te faltan ${MIN_CARACTERES_SENA - lleva}`}.`,
   },
   confirmacion: {
     tituloExito: '¡Reclamo enviado!',
