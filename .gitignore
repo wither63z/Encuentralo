@@ -12,3 +12,7 @@ secrets/
 release/
 android/app/build/
 android/.gradle/
+
+# Sitio armado para Cloudflare (npm run sitio)
+sitio/
+.wrangler/

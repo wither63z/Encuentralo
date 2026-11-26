@@ -1,5 +1,5 @@
-// Entrada: dist/ (app web compilada) · Proceso: abre una ventana de escritorio que carga
-// dist/index.html, sin integración con Node (más seguro) · Salida: Encuéntralo como .exe.
+// Entrada: dist/ (app web compilada) o ENCUENTRALO_URL (servidor Vite en vivo) · Proceso: abre una
+// ventana sin integración con Node (más seguro) · Salida: Encuéntralo como .exe o en modo vivo.
 const { app, BrowserWindow, shell } = require('electron')
 const path = require('node:path')
 
@@ -19,7 +19,11 @@ function crearVentana() {
     void shell.openExternal(url)
     return { action: 'deny' }
   })
-  void ventana.loadFile(path.join(__dirname, '..', 'dist', 'index.html'))
+  // Modo vivo (npm run escritorio:vivo): carga el servidor de Vite con recarga en caliente.
+  // Solo sin empaquetar: el .exe final ignora la variable y siempre abre dist/ (offline).
+  const urlEnVivo = app.isPackaged ? undefined : process.env.ENCUENTRALO_URL
+  if (urlEnVivo) void ventana.loadURL(urlEnVivo)
+  else void ventana.loadFile(path.join(__dirname, '..', 'dist', 'index.html'))
 }
 
 app.whenReady().then(crearVentana)

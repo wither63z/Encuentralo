@@ -1,0 +1,11 @@
+// Cloudflare Workers con static assets (sin código de Worker: "main" es opcional en Workers solo de assets).
+// Docs: https://developers.cloudflare.com/workers/static-assets/
+//       https://developers.cloudflare.com/workers/wrangler/configuration/#assets
+// Uso: npm run publicar:cloudflare (arma sitio/ y despliega). Guía completa en CLOUDFLARE.md.
+{
+  "name": "encuentralo",
+  "compatibility_date": "2026-11-26",
+  "assets": {
+    "directory": "./sitio"
+  }
+}

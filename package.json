@@ -14,7 +14,12 @@
     "verificar:supabase": "node --env-file-if-exists=.env scripts/verificar-supabase.mjs",
     "escritorio": "npm run build && electron .",
     "exe": "npm run build && electron-builder --win portable",
-    "apk:preparar": "npm run build && cap sync android"
+    "apk:preparar": "npm run build && cap sync android",
+    "escritorio:vivo": "node scripts/escritorio-vivo.mjs",
+    "exe:rapido": "npm run build && electron-builder --win dir",
+    "apk:vivo": "cap run android -l --port 5173",
+    "sitio": "node scripts/armar-sitio.mjs",
+    "publicar:cloudflare": "npm run sitio && npx --yes wrangler@4 deploy"
   },
   "dependencies": {
     "@capacitor/android": "^8.6.3",
@@ -51,11 +56,13 @@
     "files": [
       "dist/**/*",
       "electron/**/*",
-      "package.json"
+      "package.json",
+      "!node_modules/**/*"
     ],
     "win": {
       "target": "portable",
       "artifactName": "Encuentralo-${version}.exe"
-    }
+    },
+    "npmRebuild": false
   }
 }
