@@ -1,6 +1,9 @@
 import type { Categoria, Objeto } from '../../types'
 import { normalizarTexto } from '../../utils'
 
+/** Puntaje mínimo para sugerir un objeto: evita sugerir solo por la categoría (25). */
+export const PUNTAJE_MINIMO = 40
+
 // Lo que el estudiante cuenta sobre el objeto que perdió.
 export interface DescripcionPerdida {
   texto: string
@@ -64,7 +67,7 @@ export function calcularCoincidencia(objeto: Objeto, descripcion: DescripcionPer
   return { objeto, puntaje, razones }
 }
 
-// Entrada: objetos, descripción y cuántos mostrar · Proceso: solo Disponibles, puntúa, quita 0,
+// Entrada: objetos, descripción y cuántos mostrar · Proceso: solo Disponibles, puntúa, quita los de menos de PUNTAJE_MINIMO,
 // ordena por puntaje (empate: fecha más reciente) · Salida: las mejores coincidencias.
 export function buscarCoincidencias(
   objetos: readonly Objeto[],
@@ -74,7 +77,7 @@ export function buscarCoincidencias(
   return objetos
     .filter((objeto) => objeto.estado === 'Disponible')
     .map((objeto) => calcularCoincidencia(objeto, descripcion))
-    .filter((coincidencia) => coincidencia.puntaje > 0)
+    .filter((coincidencia) => coincidencia.puntaje >= PUNTAJE_MINIMO)
     .sort((a, b) => b.puntaje - a.puntaje || b.objeto.fecha.localeCompare(a.objeto.fecha))
     .slice(0, maximo)
 }

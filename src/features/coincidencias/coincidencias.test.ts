@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { OBJETOS_PRUEBA } from '../../data'
 import {
+  PUNTAJE_MINIMO,
   TOPE_PALABRAS,
   buscarCoincidencias,
   calcularCoincidencia,
@@ -30,38 +31,44 @@ describe('extraerPalabrasClave', () => {
 })
 
 describe('buscarCoincidencias', () => {
-  it('pone la chompa azul (id 1) primero con 20+20+25+15 = 80', () => {
+  it('(a) chompa azul con capucha + Ropa + cancha: id 1 primero con 60+25+15 = 100', () => {
     const resultado = buscarCoincidencias(
       OBJETOS_PRUEBA,
-      describir('chompa azul', { categoria: 'Ropa', lugar: 'cancha' }),
+      describir('chompa azul con capucha', { categoria: 'Ropa', lugar: 'cancha' }),
     )
     expect(resultado[0]?.objeto.id).toBe(1)
-    expect(resultado[0]?.puntaje).toBe(80)
+    expect(resultado[0]?.puntaje).toBe(100)
     expect(resultado[0]?.razones).toContain('Misma categoría: Ropa (+25)')
     expect(resultado[0]?.razones).toContain('Mismo lugar: Cancha de básquet (+15)')
   })
 
-  it('nunca devuelve objetos Reclamado ni Entregado', () => {
-    const calculadora = buscarCoincidencias(OBJETOS_PRUEBA, describir('calculadora científica'))
+  it('(b) solo la categoría, sin palabras que coincidan, devuelve lista vacía', () => {
+    expect(buscarCoincidencias(OBJETOS_PRUEBA, describir('', { categoria: 'Ropa' }))).toEqual([])
+    expect(buscarCoincidencias(OBJETOS_PRUEBA, describir('zapato', { categoria: 'Ropa' }))).toEqual([])
+  })
+
+  it('(c) nunca devuelve objetos Reclamado ni Entregado', () => {
+    const calculadora = buscarCoincidencias(OBJETOS_PRUEBA, describir('calculadora científica negro'))
     expect(calculadora.map((c) => c.objeto.id)).not.toContain(3)
-    const balon = buscarCoincidencias(OBJETOS_PRUEBA, describir('balón fútbol', { lugar: 'cancha' }))
+    const balon = buscarCoincidencias(OBJETOS_PRUEBA, describir('balón fútbol franjas', { lugar: 'cancha' }))
     expect(balon.map((c) => c.objeto.id)).not.toContain(5)
     expect(balon.every((c) => c.objeto.estado === 'Disponible')).toBe(true)
   })
 
+  it(`solo sugiere objetos con al menos ${PUNTAJE_MINIMO} puntos`, () => {
+    const resultado = buscarCoincidencias(OBJETOS_PRUEBA, describir('llaves termo flauta cuaderno'))
+    expect(resultado).toEqual([])
+  })
+
   it('devuelve como máximo 3 resultados (o el máximo pedido)', () => {
-    const texto = describir('llaves termo flauta cuaderno cartuchera')
+    const texto = describir('audifonos memoria cargador mouse', { categoria: 'Tecnología' })
     expect(buscarCoincidencias(OBJETOS_PRUEBA, texto)).toHaveLength(3)
     expect(buscarCoincidencias(OBJETOS_PRUEBA, texto, 2)).toHaveLength(2)
   })
 
   it('acepta coincidencia por inclusión (audifono dentro de audifonos)', () => {
-    const resultado = buscarCoincidencias(OBJETOS_PRUEBA, describir('audifono'))
+    const resultado = buscarCoincidencias(OBJETOS_PRUEBA, describir('audifono inalambrico'))
     expect(resultado[0]?.objeto.id).toBe(6)
-  })
-
-  it('devuelve lista vacía si nada se parece', () => {
-    expect(buscarCoincidencias(OBJETOS_PRUEBA, describir('paraguas morado'))).toEqual([])
   })
 })
 
@@ -71,5 +78,11 @@ describe('calcularCoincidencia', () => {
     const resultado = calcularCoincidencia(porId(1), muchas)
     expect(resultado.puntaje).toBe(TOPE_PALABRAS)
     expect(resultado.razones).toHaveLength(3)
+  })
+
+  it('(d) no distingue mayúsculas: "CALCULADORA" encuentra la calculadora', () => {
+    const resultado = calcularCoincidencia(porId(3), describir('CALCULADORA'))
+    expect(resultado.puntaje).toBe(20)
+    expect(resultado.razones).toEqual(['Coincide la palabra «calculadora» (+20)'])
   })
 })
