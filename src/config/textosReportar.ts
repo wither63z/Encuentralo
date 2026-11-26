@@ -3,6 +3,7 @@ import { FOTO, LIMITES_REPORTE } from './constantes'
 // Textos de «Reportar objeto encontrado» (se exponen como TEXTOS.reportar).
 export const TEXTOS_REPORTAR = {
   titulo: 'Reportar un objeto encontrado',
+  botonFlotante: 'Reportar objeto',
   intro: 'Registra lo que encontraste para que su dueño lo pueda ubicar. Fotografía solo el objeto, nunca a personas.',
   nombre: 'Qué objeto es',
   categoria: 'Categoría',

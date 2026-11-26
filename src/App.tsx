@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Boton, Navbar } from './components'
 import { TEXTOS } from './config'
-import { ControlesSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar } from './features'
+import { BotonReportar, ControlesSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar } from './features'
 import { useNavegacion } from './hooks'
 import {
   PaginaConfirmacion, PaginaDetalle, PaginaInicio, PaginaListado, PaginaLogin, PaginaReclamo,
@@ -30,8 +30,9 @@ export default function App() {
       <main id="contenido-principal" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-6 outline-none">
         {renderizarVista(vista)}
       </main>
+      {(vista.tipo === 'inicio' || vista.tipo === 'listado') && <BotonReportar onReportar={() => irA({ tipo: 'reportar' })} />}
       <footer aria-label={TEXTOS.pie.etiqueta} className="border-t border-borde bg-superficie">
-        <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 py-2">
+        <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 pb-20 pt-2">
           <ControlesSesion />
           <Boton variante="texto" onClick={() => irA({ tipo: 'reportar' })}>{TEXTOS.pie.reportar}</Boton>
           <Boton variante="texto" onClick={() => irA({ tipo: 'coincidencias' })}>{TEXTOS.pie.quePerdiste}</Boton>
