@@ -3,87 +3,138 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Encuéntralo · Descargas</title>
-  <meta name="description" content="Encuéntralo: objetos perdidos del Técnico Salesiano. Descarga la app para Android o Windows, o úsala en el navegador.">
+  <title>Encuéntralo · Objetos perdidos del Técnico Salesiano</title>
+  <meta name="description" content="Encuéntralo: objetos perdidos del Técnico Salesiano. Úsala en el navegador o descárgala para Android y Windows.">
   <meta name="theme-color" content="#1D4ED8">
+  <link rel="icon" type="image/png" href="./icono-encuentralo.png">
   <link rel="stylesheet" href="./estilos.css">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
 
-  <header class="cabecera">
-    <div class="marca">
-      <svg class="logo" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true" focusable="false">
-        <rect width="48" height="48" rx="12" fill="#1D4ED8"/>
-        <circle cx="21" cy="21" r="10" fill="none" stroke="#F8FAFC" stroke-width="4"/>
-        <line x1="28.5" y1="28.5" x2="37" y2="37" stroke="#F59E0B" stroke-width="5" stroke-linecap="round"/>
-      </svg>
-      <div>
-        <h1>Encuéntralo</h1>
-        <p class="lema">Objetos perdidos · Técnico Salesiano</p>
-      </div>
-    </div>
+  <header class="barra">
+    <a class="marca" href="#inicio" aria-label="Encuéntralo, inicio">
+      <img src="./icono-encuentralo.png" alt="" width="40" height="40">
+      <span>Encuéntralo</span>
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#funciones">Funciones</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#descargas">Descargar</a>
+      <a class="nav-cta" href="./app/">Abrir app</a>
+    </nav>
   </header>
 
   <main id="contenido">
-    <section class="intro" aria-labelledby="titulo-intro">
-      <h2 id="titulo-intro">Busca lo que perdiste en el colegio</h2>
-      <p>Explora los objetos encontrados, filtra por nombre o lugar y registra un reclamo de prueba. Funciona sin internet.</p>
-    </section>
-
-    <section class="descargas" aria-labelledby="titulo-descargas">
-      <h2 id="titulo-descargas">Descargar</h2>
-      <ul class="botones">
-        <li>
-          <a class="boton boton-principal" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk">
-            <span class="boton-titulo">Descargar para Android (APK)</span>
-            <span class="boton-detalle">Celulares y tablets Android</span>
-          </a>
-        </li>
-        <li>
-          <a class="boton boton-principal" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe">
-            <span class="boton-titulo">Descargar para Windows (.exe)</span>
-            <span class="boton-detalle">Portable: no requiere instalación</span>
-          </a>
-        </li>
-        <li>
-          <a class="boton boton-secundario" href="./app/">
-            <span class="boton-titulo">Usar en el navegador</span>
-            <span class="boton-detalle">Sin descargar nada</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <section class="instrucciones" aria-labelledby="titulo-instrucciones">
-      <h2 id="titulo-instrucciones">Cómo instalar</h2>
-      <div class="tarjetas">
-        <article class="tarjeta">
-          <h3>Android</h3>
-          <ol>
-            <li>Descarga <strong>Encuentralo.apk</strong> y ábrelo desde Descargas.</li>
-            <li>Si el celular lo bloquea, permite <strong>instalar apps de orígenes desconocidos</strong> para tu navegador o gestor de archivos.</li>
-            <li>Toca <strong>Instalar</strong> y abre Encuéntralo.</li>
-          </ol>
-        </article>
-        <article class="tarjeta">
-          <h3>Windows</h3>
-          <ol>
-            <li>Descarga <strong>Encuentralo.exe</strong> y haz doble clic.</li>
-            <li>Si aparece SmartScreen («Windows protegió su PC»), elige <strong>Más información → Ejecutar de todos modos</strong>. Aparece porque la app no tiene firma comercial.</li>
-            <li>La app se abre directamente; no se instala nada.</li>
-          </ol>
-        </article>
+    <section id="inicio" class="hero">
+      <div class="hero-texto aparecer">
+        <p class="etiqueta">Técnico Salesiano · Mentes que Programan 2026</p>
+        <h1>Lo que pierdes en el colegio, <span class="resaltado">lo encuentras aquí.</span></h1>
+        <p class="bajada">Busca entre los objetos encontrados, filtra por lugar o categoría y reclama lo tuyo en segundos. Entras con tu correo verificado o con Google.</p>
+        <div class="acciones">
+          <a class="boton boton-principal" href="./app/">Abrir en el navegador</a>
+          <a class="boton boton-claro" href="#descargas">Descargar app</a>
+        </div>
+      </div>
+      <div class="hero-arte aparecer" aria-hidden="true">
+        <span class="halo"></span>
+        <img class="logo-grande" src="./icono-encuentralo.png" alt="" width="280" height="280">
+        <span class="chispa c1">✦</span><span class="chispa c2">✦</span><span class="chispa c3">✦</span>
       </div>
     </section>
 
-    <aside class="aviso" aria-label="Aviso">
-      <p><strong>Datos 100% ficticios, proyecto escolar.</strong> Encuéntralo se creó para el concurso «Mentes que Programan 2026». Ningún objeto ni persona es real.</p>
+    <section class="cifras aparecer" aria-label="Encuéntralo en cifras">
+      <div><strong>3</strong><span>pasos para reclamar</span></div>
+      <div><strong>3</strong><span>plataformas: web, Android y Windows</span></div>
+      <div><strong>0</strong><span>papeles: todo queda registrado</span></div>
+    </section>
+
+    <section id="como" class="seccion" aria-labelledby="titulo-como">
+      <h2 id="titulo-como" class="aparecer">Cómo funciona</h2>
+      <ol class="pasos">
+        <li class="paso aparecer"><span class="num">1</span><h3>Busca</h3><p>Escribe qué perdiste o filtra por lugar, categoría y estado.</p></li>
+        <li class="paso aparecer"><span class="num">2</span><h3>Revisa</h3><p>Mira la foto, dónde y cuándo se encontró el objeto.</p></li>
+        <li class="paso aparecer"><span class="num">3</span><h3>Reclama</h3><p>Envía tu reclamo; queda asociado a tu cuenta para retirarlo.</p></li>
+      </ol>
+    </section>
+
+    <section id="funciones" class="seccion" aria-labelledby="titulo-funciones">
+      <h2 id="titulo-funciones" class="aparecer">Todo lo que trae</h2>
+      <ul class="funciones">
+        <li class="funcion aparecer"><span class="f-icono">🔐</span><h3>Cuenta verificada</h3><p>Ingresas con Google o con tu correo verificado por código. Se bloquean correos desechables y cuentas duplicadas.</p></li>
+        <li class="funcion aparecer"><span class="f-icono">🔎</span><h3>Buscador y filtros</h3><p>Busca por nombre o lugar y filtra por categoría y estado: Disponible, Reclamado o Entregado.</p></li>
+        <li class="funcion aparecer"><span class="f-icono">✨</span><h3>¿Qué perdiste?</h3><p>Describe tu objeto y la app te sugiere los tres más parecidos con un puntaje de coincidencia.</p></li>
+        <li class="funcion aparecer"><span class="f-icono">📸</span><h3>Reporta con foto</h3><p>¿Encontraste algo? Regístralo con foto, lugar y fecha para que su dueño lo reconozca.</p></li>
+        <li class="funcion aparecer"><span class="f-icono">🛡️</span><h3>Reclamo seguro</h3><p>Cada reclamo queda ligado a tu cuenta y pide una seña que solo el dueño conoce.</p></li>
+        <li class="funcion aparecer"><span class="f-icono">📊</span><h3>Modo inspector y Radar</h3><p>Solo profesores: entregan objetos y ven cuáles llevan más de 5 días sin reclamar y dónde se pierden más cosas.</p></li>
+      </ul>
+    </section>
+
+    <section id="descargas" class="seccion descargas" aria-labelledby="titulo-descargas">
+      <h2 id="titulo-descargas" class="aparecer">Úsala donde quieras</h2>
+      <ul class="tarjetas-descarga">
+        <li class="aparecer">
+          <a class="descarga" href="./app/">
+            <span class="icono-plataforma">🌐</span>
+            <span class="d-titulo">Navegador</span>
+            <span class="d-detalle">Sin descargar nada</span>
+          </a>
+        </li>
+        <li class="aparecer">
+          <a class="descarga" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk">
+            <span class="icono-plataforma">🤖</span>
+            <span class="d-titulo">Android (APK)</span>
+            <span class="d-detalle">Celulares y tablets</span>
+          </a>
+        </li>
+        <li class="aparecer">
+          <a class="descarga" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe">
+            <span class="icono-plataforma">🪟</span>
+            <span class="d-titulo">Windows (.exe)</span>
+            <span class="d-detalle">Portable, sin instalar</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="instrucciones">
+        <details class="aparecer">
+          <summary>Cómo instalar en Android</summary>
+          <ol>
+            <li>Descarga <strong>Encuentralo.apk</strong> y ábrelo desde Descargas.</li>
+            <li>Si el celular lo bloquea, permite <strong>instalar apps de orígenes desconocidos</strong>.</li>
+            <li>Toca <strong>Instalar</strong> y abre Encuéntralo.</li>
+          </ol>
+        </details>
+        <details class="aparecer">
+          <summary>Cómo abrir en Windows</summary>
+          <ol>
+            <li>Descarga <strong>Encuentralo.exe</strong> y haz doble clic.</li>
+            <li>Si aparece SmartScreen, elige <strong>Más información → Ejecutar de todos modos</strong> (la app no tiene firma comercial).</li>
+            <li>Se abre directamente; no se instala nada.</li>
+          </ol>
+        </details>
+      </div>
+    </section>
+
+    <aside class="aviso aparecer" aria-label="Aviso">
+      <p><strong>Proyecto escolar con datos ficticios.</strong> Creado para «Mentes que Programan 2026». Ningún objeto ni persona es real.</p>
     </aside>
   </main>
 
   <footer class="pie">
-    <p>Encuéntralo · Técnico Salesiano · <a href="https://github.com/wither63z/Encuentralo">Código fuente en GitHub</a></p>
+    <img src="./icono-encuentralo.png" alt="" width="32" height="32">
+    <p>Encuéntralo · Técnico Salesiano · <a href="https://github.com/wither63z/Encuentralo">Código en GitHub</a></p>
   </footer>
+
+  <script>
+    // Revela cada bloque al entrar en pantalla (si el navegador no lo soporta, todo queda visible).
+    if ('IntersectionObserver' in window) {
+      document.documentElement.classList.add('animar')
+      const obs = new IntersectionObserver((entradas) => {
+        entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } })
+      }, { threshold: 0.15 })
+      document.querySelectorAll('.aparecer').forEach((el) => obs.observe(el))
+    }
+  </script>
 </body>
 </html>

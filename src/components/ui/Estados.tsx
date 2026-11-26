@@ -1,4 +1,4 @@
-import { AlertCircle, Loader2, SearchX } from 'lucide-react'
+import { AlertCircle, Loader2, SearchX } from './iconos'
 import type { ReactNode } from 'react'
 import { TEXTOS } from '../../config'
 import { Boton } from './Boton'

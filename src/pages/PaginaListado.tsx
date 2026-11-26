@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from '../components/ui/iconos'
 import { Boton, BuscadorFiltro, Cargando, EstadoVacio, ListaObjetos, MensajeError } from '../components'
 import { TEXTOS } from '../config'
 import { useFiltros, useObjetos } from '../hooks'

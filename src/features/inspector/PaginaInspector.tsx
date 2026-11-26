@@ -4,6 +4,7 @@ import { TEXTOS, USAR_MOCK } from '../../config'
 import { useInspector } from '../../hooks'
 import type { Objeto } from '../../types'
 import { contarPorEstado, formatearFecha, puedeEntregar } from '../../utils'
+import { PanelRadar } from '../radar/PanelRadar'
 import { ConteoEstados } from './ConteoEstados'
 
 interface Aviso {
@@ -13,7 +14,7 @@ interface Aviso {
 
 // Entrada: nada · Proceso: muestra el conteo por estado y la lista de Reclamados; el inspector
 // marca uno como Entregado · Salida: vista del inspector con carga, error, vacío y avisos.
-export function PaginaInspector() {
+export function PaginaInspector({ onAbrir }: { onAbrir?: (id: number) => void }) {
   const { objetos, cargando, error, marcarEntregado, procesando, reintentar, restablecer } = useInspector()
   const [aviso, setAviso] = useState<Aviso | null>(null)
   const conteo = useMemo(() => contarPorEstado(objetos), [objetos])
@@ -77,6 +78,8 @@ export function PaginaInspector() {
           )}
         </section>
       )}
+
+      {!cargando && !error && <PanelRadar objetos={objetos} onAbrir={onAbrir} />}
 
       {USAR_MOCK && (
         <div className="flex flex-col items-start gap-1 border-t border-borde pt-4">

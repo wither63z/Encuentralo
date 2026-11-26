@@ -18,7 +18,7 @@ export function ResultadosCoincidencias({ coincidencias, buscado, onAbrir, onVer
   if (!buscado) return null
   if (coincidencias.length === 0) {
     const botonListado = onVerListado
-      && <Boton variante="primario" onClick={onVerListado}>{TEXTOS.acciones.verObjetos}</Boton>
+      && <Boton variante="primario" onClick={onVerListado}>{T.verListado}</Boton>
     return <EstadoVacio mensaje={T.sinResultados} accion={botonListado} />
   }
 

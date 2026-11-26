@@ -17,3 +17,4 @@ android/.gradle/
 sitio/
 .wrangler/
 !.env.production
+!.env.web

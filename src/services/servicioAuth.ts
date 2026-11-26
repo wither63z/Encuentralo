@@ -1,4 +1,4 @@
-import { CLERK_ACTIVO, USAR_MOCK } from '../config'
+import { CLERK_ACTIVO, ROL_PROFESOR, USAR_MOCK } from '../config'
 import type { Usuario } from '../types'
 
 const USUARIO_DEMO: Usuario = { id: 'demo', nombre: 'Estudiante de prueba' }
@@ -8,7 +8,12 @@ const USUARIO_DEMO: Usuario = { id: 'demo', nombre: 'Estudiante de prueba' }
 // y https://clerk.com/docs/reference/objects/session (getToken → Promise<string | null>).
 interface ClerkGlobal {
   loaded?: boolean
-  user?: { id: string; fullName: string | null; firstName?: string | null } | null
+  user?: {
+    id: string
+    fullName: string | null
+    firstName?: string | null
+    publicMetadata?: Record<string, unknown>
+  } | null
   session?: { getToken: () => Promise<string | null> } | null
 }
 
@@ -28,6 +33,14 @@ export const servicioAuth = {
     const usuario = leerClerk()?.user
     if (!usuario || typeof usuario.id !== 'string') return null
     return { id: usuario.id, nombre: usuario.fullName ?? usuario.firstName ?? '' }
+  },
+
+  // Entrada: nada · Proceso: con Clerk, revisa publicMetadata.rol (solo editable desde el panel de
+  // Clerk, nunca por el estudiante); sin Clerk solo el modo mock local lo permite
+  // Salida: true si el usuario es profesor y puede usar el modo inspector.
+  esProfesor(): boolean {
+    if (!CLERK_ACTIVO) return USAR_MOCK
+    return leerClerk()?.user?.publicMetadata?.rol === ROL_PROFESOR
   },
 
   // Entrada: nada · Proceso: revisa si hay usuario · Salida: true si puede reclamar.

@@ -29,10 +29,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Usa .env.web (login de Clerk primero, solo claves publicables).
       - run: npm run sitio
-        env:
-          # Web publicada: login primero con Clerk (clave PUBLICABLE). El .exe y la APK van sin Clerk.
-          VITE_CLERK_PUBLISHABLE_KEY: pk_test_bmF0aW9uYWwtbHlueC0yNjM0LmNsZXJrLmFjY291bnRzLmRldiQ
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

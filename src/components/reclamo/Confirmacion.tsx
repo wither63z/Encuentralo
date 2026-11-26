@@ -1,4 +1,4 @@
-import { CircleCheck, CircleX } from 'lucide-react'
+import { CircleCheck, CircleX } from '../ui/iconos'
 import { TEXTOS } from '../../config'
 import { Boton } from '../ui/Boton'
 

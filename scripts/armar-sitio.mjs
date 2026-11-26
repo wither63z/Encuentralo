@@ -7,7 +7,8 @@ const SALTAR_BUILD = process.argv.includes('--sin-build')
 
 // Entrada: nada · Proceso: ejecuta "npm run build" en esta terminal · Salida: dist/ actualizado.
 function compilarApp() {
-  const resultado = spawnSync('npm run build', { stdio: 'inherit', shell: true })
+  // La web publicada usa el modo «web» (.env.web: login de Clerk primero); .exe y APK usan producción.
+  const resultado = spawnSync('npx tsc --noEmit && npx vite build --mode web', { stdio: 'inherit', shell: true })
   if (resultado.status !== 0) {
     console.error('✗ Falló npm run build: no se armó sitio/.')
     process.exit(resultado.status ?? 1)

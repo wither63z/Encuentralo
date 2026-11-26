@@ -38,7 +38,10 @@ export const CLAVE_CLERK = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ?? ''
 export const CLERK_ACTIVO = CLAVE_CLERK.startsWith('pk_')
 
 /** Ruta a la que Clerk regresa tras cerrar sesión (la app no usa router). */
-export const CLERK_URL_TRAS_SALIR = '/'
+// Rol que habilita el modo inspector (publicMetadata de Clerk y claim «rol» del token para Supabase).
+export const ROL_PROFESOR = 'profesor'
+
+export const CLERK_URL_TRAS_SALIR = import.meta.env.BASE_URL
 
 /** Máximo de reclamos por cuenta de Clerk; debe coincidir con supabase/02_clerk.sql. */
 export const MAX_RECLAMOS_POR_USUARIO = 3

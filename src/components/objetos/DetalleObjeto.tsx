@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from '../ui/iconos'
 import { TEXTOS } from '../../config'
 import type { Objeto } from '../../types'
 import { formatearFecha, puedeReclamar, razonNoReclamable } from '../../utils'

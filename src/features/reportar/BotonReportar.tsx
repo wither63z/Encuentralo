@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { Plus } from '../../components/ui/iconos'
 import { TEXTOS } from '../../config'
 
 // Entrada: acción para abrir «Reportar objeto encontrado» · Proceso: botón flotante fijo abajo a

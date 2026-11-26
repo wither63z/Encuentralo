@@ -1,7 +1,7 @@
-import { Box, Dumbbell, Laptop, PencilRuler, Shirt, type LucideIcon } from 'lucide-react'
+import { Box, Dumbbell, Laptop, PencilRuler, Shirt, type Icono } from './iconos'
 import type { Categoria } from '../../types'
 
-const ICONOS: Record<Categoria, LucideIcon> = {
+const ICONOS: Record<Categoria, Icono> = {
   Ropa: Shirt,
   Útiles: PencilRuler,
   Tecnología: Laptop,

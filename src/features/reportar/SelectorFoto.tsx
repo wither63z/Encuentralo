@@ -1,4 +1,4 @@
-import { Camera, Loader2, X } from 'lucide-react'
+import { Camera, Loader2, X } from '../../components/ui/iconos'
 import { useRef } from 'react'
 import { TEXTOS } from '../../config'
 

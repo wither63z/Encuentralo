@@ -1,8 +1,8 @@
-import { CircleCheck, Clock, PackageCheck, type LucideIcon } from 'lucide-react'
+import { CircleCheck, Clock, PackageCheck, type Icono } from '../../components/ui/iconos'
 import { ESTADOS, ESTADOS_UI, TEXTOS, type NombreIconoEstado } from '../../config'
 import type { Estado } from '../../types'
 
-const ICONOS: Record<NombreIconoEstado, LucideIcon> = { CircleCheck, Clock, PackageCheck }
+const ICONOS: Record<NombreIconoEstado, Icono> = { CircleCheck, Clock, PackageCheck }
 
 // Entrada: conteo por estado · Proceso: una tarjeta por estado con color, ícono y texto de
 // ESTADOS_UI (el color nunca va solo) · Salida: resumen accesible de tres tarjetas.

@@ -1,5 +1,5 @@
-import { SignIn } from '@clerk/clerk-react'
-import { Info } from 'lucide-react'
+import { SignIn } from '@clerk/react'
+import { Info } from '../components/ui/iconos'
 import { Boton } from '../components'
 import { CLERK_ACTIVO, TEXTOS } from '../config'
 

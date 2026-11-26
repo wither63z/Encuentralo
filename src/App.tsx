@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Boton, Navbar } from './components'
 import { TEXTOS } from './config'
-import { BotonReportar, ControlesSesion, PuertaSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar } from './features'
+import { BotonReportar, ControlesSesion, PuertaSesion, PaginaInspector, PaginaQuePerdiste, PaginaReportar, useEsProfesor } from './features'
 import { useNavegacion } from './hooks'
 import {
   PaginaConfirmacion, PaginaDetalle, PaginaInicio, PaginaListado, PaginaLogin, PaginaReclamo,
@@ -14,6 +14,7 @@ import type { ResultadoReclamo, Vista } from './types'
 export default function App() {
   const { vista, irA, volver } = useNavegacion()
   const [mensajeResultado, setMensajeResultado] = useState<string | undefined>()
+  const esProfesor = useEsProfesor()
 
   function irAReclamo(id: number) {
     irA(servicioAuth.estaAutenticado() ? { tipo: 'reclamo', id } : { tipo: 'login' })
@@ -27,17 +28,18 @@ export default function App() {
   return (
     <PuertaSesion>
     <div className="min-h-dvh bg-fondo text-texto">
-      <Navbar vistaActual={vista} onIr={irA} />
+      <Navbar vistaActual={vista} onIr={irA} extra={<ControlesSesion />} />
       <main id="contenido-principal" tabIndex={-1} className="mx-auto max-w-5xl px-4 py-6 outline-none">
         {renderizarVista(vista)}
       </main>
       {vista.tipo === 'listado' && <BotonReportar onReportar={() => irA({ tipo: 'reportar' })} />}
       <footer aria-label={TEXTOS.pie.etiqueta} className="border-t border-borde bg-superficie">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 pb-20 pt-2">
-          <ControlesSesion />
           <Boton variante="texto" onClick={() => irA({ tipo: 'reportar' })}>{TEXTOS.pie.reportar}</Boton>
           <Boton variante="texto" onClick={() => irA({ tipo: 'coincidencias' })}>{TEXTOS.pie.quePerdiste}</Boton>
-          <Boton variante="texto" onClick={() => irA({ tipo: 'inspector' })}>{TEXTOS.pie.modoInspector}</Boton>
+          {esProfesor && (
+            <Boton variante="texto" onClick={() => irA({ tipo: 'inspector' })}>{TEXTOS.pie.modoInspector}</Boton>
+          )}
         </div>
       </footer>
     </div>
@@ -60,11 +62,12 @@ export default function App() {
       case 'confirmacion':
         return <PaginaConfirmacion resultado={actual.resultado} mensaje={mensajeResultado} onVolverListado={() => irA({ tipo: 'listado' })} />
       case 'inspector':
-        return <PaginaInspector />
+        return esProfesor ? <PaginaInspector onAbrir={(id) => irA({ tipo: 'detalle', id })} /> : <PaginaInicio onVerObjetos={() => irA({ tipo: 'listado' })}
+          onReportar={() => irA({ tipo: 'reportar' })} onQuePerdiste={() => irA({ tipo: 'coincidencias' })} />
       case 'reportar':
         return <PaginaReportar onCancelar={volver} onRegistrado={(id) => irA({ tipo: 'detalle', id })} />
       case 'coincidencias':
-        return <PaginaQuePerdiste onAbrir={(id) => irA({ tipo: 'detalle', id })} />
+        return <PaginaQuePerdiste onAbrir={(id) => irA({ tipo: 'detalle', id })} onVerListado={() => irA({ tipo: 'listado' })} />
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Camera, Eye, HandHeart, Search, Sparkles, type LucideIcon } from 'lucide-react'
+import { Camera, Eye, HandHeart, Search, Sparkles, type Icono } from '../components/ui/iconos'
 import { Boton, EstadoBadge } from '../components'
 import { ESTADOS, TEXTOS } from '../config'
 
@@ -8,12 +8,12 @@ export interface PaginaInicioProps {
   onQuePerdiste: () => void
 }
 
-const ICONOS_PASOS: readonly LucideIcon[] = [Search, Eye, HandHeart]
+const ICONOS_PASOS: readonly Icono[] = [Search, Eye, HandHeart]
 const LOGO = `${import.meta.env.BASE_URL}icono-encuentralo.png`
 
 // Entrada: número, ícono, título y texto de un paso · Proceso: lo dibuja como tarjeta
 // Salida: un <li> con el paso numerado.
-function TarjetaPaso({ numero, Icono, titulo, texto }: { numero: number; Icono: LucideIcon; titulo: string; texto: string }) {
+function TarjetaPaso({ numero, Icono, titulo, texto }: { numero: number; Icono: Icono; titulo: string; texto: string }) {
   return (
     <li className="flex gap-4 rounded-xl border border-borde bg-superficie p-5 shadow-sm">
       <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-marca-suave text-marca">

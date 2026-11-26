@@ -1,8 +1,8 @@
-import { CircleCheck, Clock, PackageCheck, type LucideIcon } from 'lucide-react'
+import { CircleCheck, Clock, PackageCheck, type Icono } from './iconos'
 import { ESTADOS_UI, type NombreIconoEstado } from '../../config'
 import type { Estado } from '../../types'
 
-const ICONOS: Record<NombreIconoEstado, LucideIcon> = { CircleCheck, Clock, PackageCheck }
+const ICONOS: Record<NombreIconoEstado, Icono> = { CircleCheck, Clock, PackageCheck }
 
 // Entrada: estado · Proceso: busca etiqueta, ícono y color en ESTADOS_UI
 // Salida: insignia con color + ícono + texto (nunca solo color).

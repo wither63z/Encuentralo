@@ -11,7 +11,7 @@ const T = TEXTOS.coincidencias
 
 // Entrada: acción para abrir un objeto · Proceso: carga los objetos y, al buscar, calcula
 // las 3 coincidencias Disponibles más parecidas · Salida: formulario + resultados.
-export function PaginaQuePerdiste({ onAbrir }: { onAbrir: (id: number) => void }) {
+export function PaginaQuePerdiste({ onAbrir, onVerListado }: { onAbrir: (id: number) => void; onVerListado?: () => void }) {
   const { objetos, cargando, error, reintentar } = useObjetos()
   const [coincidencias, setCoincidencias] = useState<Coincidencia[]>([])
   const [buscado, setBuscado] = useState(false)
@@ -28,7 +28,7 @@ export function PaginaQuePerdiste({ onAbrir }: { onAbrir: (id: number) => void }
       <h1 className="font-display text-2xl font-bold">{T.titulo}</h1>
       <p className="text-texto-suave">{T.explicacion}</p>
       <FormularioPerdida onBuscar={buscar} />
-      <ResultadosCoincidencias coincidencias={coincidencias} buscado={buscado} onAbrir={onAbrir} />
+      <ResultadosCoincidencias coincidencias={coincidencias} buscado={buscado} onAbrir={onAbrir} onVerListado={onVerListado} />
     </section>
   )
 }
