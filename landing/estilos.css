@@ -1,0 +1,123 @@
+/* Landing de descargas de Encuéntralo: mobile-first, sin recursos externos (fuentes del sistema). */
+:root {
+  --marca: #1d4ed8;
+  --marca-oscura: #1e3a8a;
+  --fondo: #f8fafc;
+  --superficie: #ffffff;
+  --acento: #f59e0b;
+  --texto: #0f172a;
+  --texto-suave: #475569;
+  --borde: #cbd5e1;
+  --radio: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--texto);
+  background: var(--fondo);
+}
+
+/* Foco visible y consistente en todo elemento interactivo. */
+:focus-visible {
+  outline: 3px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+a { color: var(--marca); text-underline-offset: 3px; }
+a:hover { color: var(--marca-oscura); }
+
+.saltar {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  padding: 0.75rem 1rem;
+  background: var(--texto);
+  color: #fff;
+  border-radius: 8px;
+  z-index: 10;
+}
+.saltar:focus { top: 1rem; color: #fff; }
+
+.cabecera {
+  background: var(--marca);
+  color: #fff;
+  padding: 1.5rem 1.25rem;
+}
+.marca { display: flex; align-items: center; gap: 0.875rem; max-width: 56rem; margin: 0 auto; }
+.logo { flex-shrink: 0; border-radius: 12px; box-shadow: 0 0 0 2px rgb(255 255 255 / 0.35); }
+.cabecera h1 { margin: 0; font-size: 1.75rem; line-height: 1.15; }
+.lema { margin: 0.125rem 0 0; color: #dbeafe; font-weight: 500; }
+
+main { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1.25rem 2.5rem; }
+section { margin-bottom: 2rem; }
+h2 { font-size: 1.375rem; margin: 0 0 0.75rem; }
+h3 { font-size: 1.125rem; margin: 0 0 0.5rem; }
+.intro p { margin: 0; color: var(--texto-suave); }
+
+.botones { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.875rem; }
+
+.boton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 4rem; /* táctil holgado, muy por encima de 44px */
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radio);
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.boton-titulo { font-size: 1.125rem; font-weight: 700; }
+.boton-detalle { font-size: 0.9375rem; }
+
+.boton-principal { background: var(--marca); color: #fff; }
+.boton-principal .boton-detalle { color: #dbeafe; }
+.boton-principal:hover { background: var(--marca-oscura); color: #fff; }
+
+.boton-secundario { background: var(--superficie); color: var(--marca); border-color: var(--marca); }
+.boton-secundario .boton-detalle { color: var(--texto-suave); }
+.boton-secundario:hover { background: #eff6ff; color: var(--marca-oscura); }
+
+.boton:active { transform: scale(0.98); }
+
+.tarjetas { display: grid; gap: 1rem; }
+.tarjeta {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-top: 4px solid var(--acento);
+  border-radius: var(--radio);
+  padding: 1rem 1.25rem;
+}
+.tarjeta ol { margin: 0; padding-left: 1.25rem; }
+.tarjeta li + li { margin-top: 0.375rem; }
+
+.aviso {
+  background: #fef3c7;
+  border-left: 6px solid var(--acento);
+  border-radius: 10px;
+  padding: 0.875rem 1rem;
+}
+.aviso p { margin: 0; }
+
+.pie { text-align: center; color: var(--texto-suave); padding: 1rem 1.25rem 2rem; font-size: 0.9375rem; }
+.pie a { display: inline-block; padding: 0.625rem 0.25rem; min-height: 44px; }
+
+@media (min-width: 640px) {
+  .cabecera h1 { font-size: 2.25rem; }
+  .botones { grid-template-columns: 1fr 1fr; }
+  .botones li:last-child { grid-column: 1 / -1; }
+  .tarjetas { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton { transition: none; }
+  .boton:active { transform: none; }
+}

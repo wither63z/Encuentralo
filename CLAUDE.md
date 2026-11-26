@@ -30,3 +30,4 @@ Ver `src/types/index.ts`, `src/services/RepositorioObjetos.ts`, barrels `src/*/i
 
 ## Skills del proyecto (`.claude/skills/`, solo por pedido explícito)
 `grill-me`/`grilling` (mattpocock/skills, MIT) y `design-system` (tokens propios + referencia de nexu-io/open-design, Apache-2.0). Versiones fijadas en `design-system/SKILL.md`.
+`cloudflare-wrangler` y `cloudflare-workers-best-practices` (cloudflare/skills, Apache-2.0; procedencia en `.claude/skills/README-cloudflare.md`).

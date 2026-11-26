@@ -1,0 +1,93 @@
+# Publica una versión: compila la APK (Android) y el .exe (Windows), los sube a un GitHub Release
+# con nombres fijos (Encuentralo.apk / Encuentralo.exe, los que enlaza la landing) y arma el sitio web.
+# Se ejecuta al subir un tag v* (git tag v0.1.0 && git push origin v0.1.0) o a mano desde Actions.
+name: Publicar
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag del Release a crear o actualizar (p. ej. v0.1.0)'
+        required: true
+        default: 'v0.1.0'
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci
+      - run: npm run typecheck && npm run verificar && npm test
+      - run: npm run apk:preparar
+      - name: Compilar APK de prueba (debug)
+        working-directory: android
+        run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon
+      - name: Renombrar APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Encuentralo.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Encuentralo-apk
+          path: Encuentralo.apk
+      # dist/ ya quedó compilado por apk:preparar: se reutiliza para el sitio (landing + app en /app/).
+      - name: Armar sitio
+        run: node scripts/armar-sitio.mjs --sin-build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sitio
+          path: sitio/
+
+  exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run exe
+      - name: Renombrar exe
+        shell: bash
+        run: cp release/Encuentralo-*.exe Encuentralo.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Encuentralo-exe
+          path: Encuentralo.exe
+
+  release:
+    needs: [apk, exe]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Encuentralo-*
+          path: binarios
+          merge-multiple: true
+      - name: Crear o actualizar el Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          name: Encuéntralo ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+          body: |
+            Descargas de Encuéntralo (objetos perdidos · Técnico Salesiano). Datos 100% ficticios, proyecto escolar.
+            - **Encuentralo.apk**: Android (permitir instalar apps de orígenes desconocidos).
+            - **Encuentralo.exe**: Windows portable (SmartScreen → Más información → Ejecutar de todos modos).
+          files: |
+            binarios/Encuentralo.apk
+            binarios/Encuentralo.exe
+          fail_on_unmatched_files: true
