@@ -40,6 +40,9 @@ describe('Reglas 4 y 5: validarReclamo', () => {
   it('acepta seña de 10 caracteres', () => {
     expect(esReclamoValido(validarReclamo({ ...base, sena: '1234567890' }))).toBe(true)
   })
+  it('rechaza textos más largos que el máximo', () => {
+    expect(validarReclamo({ ...base, sena: 'x'.repeat(301) }).sena).toContain('300')
+  })
   it('no cuenta espacios de los extremos', () => {
     expect(validarReclamo({ ...base, sena: '   123456789   ' }).sena).toBeDefined()
   })

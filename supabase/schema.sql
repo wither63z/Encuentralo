@@ -15,9 +15,9 @@ create table if not exists reclamos (
   id uuid primary key default gen_random_uuid(),
   objeto_id bigint not null references objetos(id),
   clerk_user_id text,
-  nombre text not null check (length(trim(nombre)) > 0),
-  curso text not null check (length(trim(curso)) > 0),
-  sena text not null check (length(trim(sena)) >= 10),
+  nombre text not null check (length(trim(nombre)) between 1 and 80),
+  curso text not null check (length(trim(curso)) between 1 and 40),
+  sena text not null check (length(trim(sena)) between 10 and 300),
   creado_en timestamptz not null default now()
 );
 
@@ -28,24 +28,28 @@ alter table reclamos enable row level security;
 drop policy if exists "objetos lectura publica" on objetos;
 create policy "objetos lectura publica" on objetos for select using (true);
 -- reclamos: sin políticas => anon no puede leer ni escribir directamente.
+-- Defensa extra: quitar permisos de escritura de tabla aunque cambien las políticas.
+revoke insert, update, delete on public.objetos from anon, authenticated;
+revoke all on public.reclamos from anon, authenticated;
 
 -- Única vía de escritura: cambia a Reclamado SOLO si estaba Disponible (reglas 2 y 3).
 create or replace function reclamar_objeto(p_objeto bigint, p_nombre text, p_curso text, p_sena text)
 returns boolean
 language plpgsql
 security definer
-set search_path = public
+set search_path = ''
 as $$
 begin
-  if length(trim(coalesce(p_nombre,''))) = 0 or length(trim(coalesce(p_curso,''))) = 0
-     or length(trim(coalesce(p_sena,''))) < 10 then
+  if length(trim(coalesce(p_nombre,''))) not between 1 and 80
+     or length(trim(coalesce(p_curso,''))) not between 1 and 40
+     or length(trim(coalesce(p_sena,''))) not between 10 and 300 then
     return false;
   end if;
-  update objetos set estado = 'Reclamado' where id = p_objeto and estado = 'Disponible';
+  update public.objetos set estado = 'Reclamado' where id = p_objeto and estado = 'Disponible';
   if not found then
     return false;
   end if;
-  insert into reclamos (objeto_id, nombre, curso, sena) values (p_objeto, trim(p_nombre), trim(p_curso), trim(p_sena));
+  insert into public.reclamos (objeto_id, nombre, curso, sena) values (p_objeto, trim(p_nombre), trim(p_curso), trim(p_sena));
   return true;
 end;
 $$;
@@ -60,10 +64,10 @@ create or replace function marcar_entregado(p_objeto bigint)
 returns boolean
 language plpgsql
 security definer
-set search_path = public
+set search_path = ''
 as $$
 begin
-  update objetos set estado = 'Entregado' where id = p_objeto and estado = 'Reclamado';
+  update public.objetos set estado = 'Entregado' where id = p_objeto and estado = 'Reclamado';
   return found;
 end;
 $$;

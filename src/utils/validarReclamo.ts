@@ -1,4 +1,4 @@
-import { MIN_CARACTERES_SENA, TEXTOS } from '../config'
+import { MAX_CARACTERES, MIN_CARACTERES_SENA, TEXTOS } from '../config'
 import type { DatosReclamo, ErroresReclamo } from '../types'
 
 // Entrada: datos del formulario · Proceso: recorta espacios y aplica reglas 4 y 5
@@ -13,6 +13,10 @@ export function validarReclamo(datos: DatosReclamo): ErroresReclamo {
   if (curso === '') errores.curso = TEXTOS.validacion.cursoVacio
   if (sena === '') errores.sena = TEXTOS.validacion.senaVacia
   else if (sena.length < MIN_CARACTERES_SENA) errores.sena = TEXTOS.validacion.senaCorta(sena.length)
+
+  if (nombre.length > MAX_CARACTERES.nombre) errores.nombre = TEXTOS.validacion.muyLargo(MAX_CARACTERES.nombre)
+  if (curso.length > MAX_CARACTERES.curso) errores.curso = TEXTOS.validacion.muyLargo(MAX_CARACTERES.curso)
+  if (sena.length > MAX_CARACTERES.sena) errores.sena = TEXTOS.validacion.muyLargo(MAX_CARACTERES.sena)
 
   return errores
 }

@@ -7,6 +7,9 @@ export const ESTADOS: readonly Estado[] = ['Disponible', 'Reclamado', 'Entregado
 /** Regla 4 del enunciado: la seña particular debe tener al menos este número de caracteres. */
 export const MIN_CARACTERES_SENA = 10
 
+/** Límites máximos (iguales a los checks de supabase/schema.sql) para evitar textos abusivos. */
+export const MAX_CARACTERES = { nombre: 80, curso: 40, sena: 300 } as const
+
 /** Latencia simulada del repositorio mock (ms), para ver estados de carga. */
 export const LATENCIA_MOCK_MS = 300
 
