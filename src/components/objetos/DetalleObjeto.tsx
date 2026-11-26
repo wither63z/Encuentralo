@@ -26,7 +26,12 @@ export function DetalleObjeto({ objeto, onReclamar, onVolver }: DetalleObjetoPro
     <article className="flex flex-col gap-4 rounded-xl border border-borde bg-superficie p-5">
       <Boton variante="texto" onClick={onVolver}><ArrowLeft size={18} aria-hidden="true" />{TEXTOS.acciones.volverListado}</Boton>
       <div className="flex items-center gap-4">
-        <span className="grid size-20 place-items-center rounded-xl bg-marca-suave"><CategoriaIcono categoria={objeto.categoria} tamano={40} /></span>
+        {objeto.foto ? (
+          <img src={objeto.foto} alt={`Foto de ${objeto.nombre}`} loading="lazy" width={128} height={128}
+            className="aspect-square size-32 shrink-0 rounded-xl object-cover" />
+        ) : (
+          <span className="grid size-20 place-items-center rounded-xl bg-marca-suave"><CategoriaIcono categoria={objeto.categoria} tamano={40} /></span>
+        )}
         <div className="flex flex-col items-start gap-2">
           <h1 className="text-2xl font-bold">{objeto.nombre}</h1>
           <EstadoBadge estado={objeto.estado} />
