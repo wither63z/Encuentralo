@@ -1,10 +1,11 @@
-import { CATEGORIAS, CLAVE_ALMACEN, ESTADOS } from '../config'
+import { CATEGORIAS, CLAVE_ALMACEN, CONSERVAR_DATOS_DEMO, ESTADOS } from '../config'
 import type { Objeto } from '../types'
 
 // Persistencia del mock en localStorage. Todo va protegido: en Node (tests) o con el
 // almacenamiento bloqueado, simplemente no se guarda y la app sigue en memoria.
 
 function hayLocalStorage(): boolean {
+  if (!CONSERVAR_DATOS_DEMO) return false
   try {
     return typeof localStorage !== 'undefined'
   } catch {

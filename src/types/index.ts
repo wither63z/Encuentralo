@@ -26,6 +26,8 @@ export type ErroresReclamo = Partial<Record<keyof DatosReclamo, string>>
 export interface ResultadoReclamo {
   ok: boolean
   mensaje?: string
+  /** Errores por campo cuando la validación falla (no se envía nada al repositorio). */
+  errores?: ErroresReclamo
 }
 
 export interface FiltrosObjetos {

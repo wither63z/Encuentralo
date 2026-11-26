@@ -21,11 +21,10 @@ function leerClerk(): ClerkGlobal | undefined {
 }
 
 export const servicioAuth = {
-  // Entrada: nada · Proceso: usuario ficticio SOLO en modo mock; con Clerk lee la sesión;
-  // sin mock y sin Clerk no hay nadie autenticado · Salida: usuario actual o null.
+  // Entrada: nada · Proceso: con Clerk lee la sesión; sin Clerk, usuario ficticio SOLO en modo
+  // mock (sin mock y sin Clerk no hay nadie autenticado) · Salida: usuario actual o null.
   usuarioActual(): Usuario | null {
-    if (USAR_MOCK) return USUARIO_DEMO
-    if (!CLERK_ACTIVO) return null
+    if (!CLERK_ACTIVO) return USAR_MOCK ? USUARIO_DEMO : null
     const usuario = leerClerk()?.user
     if (!usuario || typeof usuario.id !== 'string') return null
     return { id: usuario.id, nombre: usuario.fullName ?? usuario.firstName ?? '' }

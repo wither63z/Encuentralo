@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Boton, Navbar } from './components'
 import { TEXTOS } from './config'
-import { PaginaInspector, PaginaQuePerdiste } from './features'
+import { ControlesSesion, PaginaInspector, PaginaQuePerdiste } from './features'
 import { useNavegacion } from './hooks'
 import {
   PaginaConfirmacion, PaginaDetalle, PaginaInicio, PaginaListado, PaginaLogin, PaginaReclamo,
@@ -32,6 +32,7 @@ export default function App() {
       </main>
       <footer aria-label={TEXTOS.pie.etiqueta} className="border-t border-borde bg-superficie">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 py-2">
+          <ControlesSesion />
           <Boton variante="texto" onClick={() => irA({ tipo: 'coincidencias' })}>{TEXTOS.pie.quePerdiste}</Boton>
           <Boton variante="texto" onClick={() => irA({ tipo: 'inspector' })}>{TEXTOS.pie.modoInspector}</Boton>
         </div>
