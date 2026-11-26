@@ -3,7 +3,8 @@ import { formatearFecha } from '../../utils'
 import { CategoriaIcono } from '../ui/CategoriaIcono'
 import { EstadoBadge } from '../ui/EstadoBadge'
 
-// Entrada: objeto · Salida: tarjeta con nombre, fecha, categoría y estado (botón accesible).
+// Entrada: objeto y acción al abrir · Proceso: arma ícono, nombre, categoría, fecha e insignia
+// Salida: tarjeta-botón accesible que abre el detalle del objeto.
 export function ObjetoCard({ objeto, onAbrir }: { objeto: Objeto; onAbrir: (id: number) => void }) {
   return (
     <button type="button" onClick={() => onAbrir(objeto.id)}

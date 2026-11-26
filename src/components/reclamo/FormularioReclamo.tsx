@@ -20,12 +20,16 @@ export function FormularioReclamo({ objeto, onEnviar, onCancelar, enviando, dato
   const [errores, setErrores] = useState<ErroresReclamo>({})
   const [intentado, setIntentado] = useState(false)
 
+  // Entrada: campo y nuevo valor · Proceso: guarda el valor y revalida si ya se intentó enviar
+  // Salida: estado del formulario actualizado.
   function cambiar(campo: keyof DatosReclamo, valor: string) {
     const nuevos = { ...datos, [campo]: valor }
     setDatos(nuevos)
     if (intentado) setErrores(validarReclamo(nuevos))
   }
 
+  // Entrada: evento submit · Proceso: valida los 3 campos (reglas 4 y 5)
+  // Salida: llama a onEnviar si todo está bien; si no, muestra errores y enfoca el primero.
   function enviar(evento: FormEvent) {
     evento.preventDefault()
     const encontrados = validarReclamo(datos)
@@ -42,7 +46,8 @@ export function FormularioReclamo({ objeto, onEnviar, onCancelar, enviando, dato
       <CampoTexto id="campo-nombre" etiqueta={TEXTOS.reclamo.nombre} valor={datos.nombre} onChange={(v) => cambiar('nombre', v)} error={errores.nombre} />
       <CampoTexto id="campo-curso" etiqueta={TEXTOS.reclamo.curso} valor={datos.curso} onChange={(v) => cambiar('curso', v)} error={errores.curso} />
       <CampoTexto id="campo-sena" etiqueta={TEXTOS.reclamo.sena} valor={datos.sena} onChange={(v) => cambiar('sena', v)}
-        error={errores.sena} multilinea minimo={MIN_CARACTERES_SENA} ayuda={TEXTOS.reclamo.ayudaSena} />
+        error={errores.sena} multilinea minimo={MIN_CARACTERES_SENA} ayuda={TEXTOS.reclamo.ayudaSena}
+        textoContador={TEXTOS.reclamo.contador} />
       <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
         <Boton variante="secundario" onClick={onCancelar}>{TEXTOS.acciones.cancelar}</Boton>
         <Boton variante="primario" tipo="submit" disabled={enviando} onClick={() => undefined}>

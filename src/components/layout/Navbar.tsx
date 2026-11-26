@@ -7,7 +7,8 @@ export interface NavbarProps {
   onIr: (vista: Vista) => void
 }
 
-// Entrada: vista actual · Proceso: marca la opción activa · Salida: barra con logo y menú.
+// Entrada: vista actual y función para navegar · Proceso: marca la opción activa
+// Salida: barra superior con logo y menú (Inicio, Objetos e Ingresar si hay login).
 export function Navbar({ vistaActual, onIr }: NavbarProps) {
   const opciones: { etiqueta: string; vista: Vista }[] = [
     { etiqueta: TEXTOS.menu.inicio, vista: { tipo: 'inicio' } },

@@ -11,12 +11,13 @@ export interface BotonProps {
 }
 
 const CLASES: Record<VarianteBoton, string> = {
-  primario: 'bg-marca text-white hover:opacity-90',
+  primario: 'bg-marca text-superficie hover:opacity-90',
   secundario: 'bg-superficie text-marca border border-marca hover:bg-marca-suave',
   texto: 'text-marca underline-offset-4 hover:underline',
 }
 
-// Entrada: variante, estado y contenido · Proceso: aplica clases del tema · Salida: botón ≥44px.
+// Entrada: variante, disabled y contenido · Proceso: aplica las clases de la variante
+// Salida: botón de al menos 44px; si está disabled se ve atenuado y no responde.
 export function Boton({ variante, disabled, onClick, children, tipo = 'button' }: BotonProps) {
   return (
     <button

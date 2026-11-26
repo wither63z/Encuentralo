@@ -8,7 +8,8 @@ export interface ConfirmacionProps {
   mensaje?: string
 }
 
-// Entrada: resultado del reclamo · Salida: mensaje de éxito o error y botón para volver al listado.
+// Entrada: resultado del reclamo · Proceso: elige ícono, color y textos de éxito o de error
+// Salida: mensaje claro y botón para volver al listado.
 export function Confirmacion({ resultado, onVolver, mensaje }: ConfirmacionProps) {
   const exito = resultado === 'exito'
   const Icono = exito ? CircleCheck : CircleX

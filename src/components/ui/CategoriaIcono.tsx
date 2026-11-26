@@ -9,7 +9,8 @@ const ICONOS: Record<Categoria, LucideIcon> = {
   Otros: Box,
 }
 
-// Entrada: categoría y tamaño · Proceso: elige el ícono · Salida: ícono decorativo.
+// Entrada: categoría y tamaño · Proceso: busca el ícono de esa categoría en ICONOS
+// Salida: ícono decorativo (aria-hidden) en color de marca.
 export function CategoriaIcono({ categoria, tamano = 24 }: { categoria: Categoria; tamano?: number }) {
   const Icono = ICONOS[categoria]
   return <Icono size={tamano} aria-hidden="true" className="text-marca" />

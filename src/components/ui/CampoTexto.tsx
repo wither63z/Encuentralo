@@ -8,11 +8,13 @@ export interface CampoTextoProps {
   /** Si se indica, muestra el contador n/minimo. */
   minimo?: number
   ayuda?: string
+  /** Texto del contador, p. ej. TEXTOS.reclamo.contador. Si falta, se muestra «n/minimo». */
+  textoContador?: (lleva: number) => string
 }
 
 // Entrada: valor, etiqueta y error · Proceso: input o textarea con label visible y aria
 // Salida: campo accesible con mensaje de error junto al campo y contador opcional.
-export function CampoTexto({ id, etiqueta, valor, onChange, error, multilinea, minimo, ayuda }: CampoTextoProps) {
+export function CampoTexto({ id, etiqueta, valor, onChange, error, multilinea, minimo, ayuda, textoContador }: CampoTextoProps) {
   const clases = `w-full rounded-lg border bg-superficie px-3 py-2 min-h-11 focus-visible:outline-2 focus-visible:outline-marca ${error ? 'border-error' : 'border-borde'}`
   const idAyuda = `${id}-ayuda`
   const props = {
@@ -35,7 +37,9 @@ export function CampoTexto({ id, etiqueta, valor, onChange, error, multilinea, m
       <div id={idAyuda} className="flex justify-between gap-2 text-sm">
         <span className={error ? 'text-error' : 'text-texto-suave'}>{error ?? ayuda ?? ''}</span>
         {minimo !== undefined && (
-          <span className={largo >= minimo ? 'text-texto-suave' : 'text-error'}>{largo}/{minimo}</span>
+          <span className={largo >= minimo ? 'text-texto-suave' : 'text-error'}>
+            {textoContador ? textoContador(largo) : `${largo}/${minimo}`}
+          </span>
         )}
       </div>
     </div>
