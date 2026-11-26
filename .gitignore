@@ -16,3 +16,4 @@ android/.gradle/
 # Sitio armado para Cloudflare (npm run sitio)
 sitio/
 .wrangler/
+!.env.production
