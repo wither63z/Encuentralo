@@ -102,6 +102,7 @@ export const TEXTOS = {
   },
   pie: {
     modoInspector: 'Modo inspector',
+    quePerdiste: '¿Qué perdiste?',
     etiqueta: 'Herramientas de la demostración',
   },
   cargando: 'Cargando…',

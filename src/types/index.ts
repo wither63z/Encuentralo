@@ -42,6 +42,7 @@ export type Vista =
   | { tipo: 'reclamo'; id: number }
   | { tipo: 'confirmacion'; resultado: 'exito' | 'error' }
   | { tipo: 'inspector' }
+  | { tipo: 'coincidencias' }
 
 export interface Usuario {
   id: string

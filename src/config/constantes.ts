@@ -14,7 +14,7 @@ export const MAX_CARACTERES = { nombre: 80, curso: 40, sena: 300 } as const
 export const LATENCIA_MOCK_MS = 300
 
 /** Clave de localStorage donde el mock conserva los datos entre recargas (subir la versión si cambia el formato). */
-export const CLAVE_ALMACEN = 'encuentralo-datos-v1'
+export const CLAVE_ALMACEN = 'encuentralo-datos-v2'
 
 /** true por defecto: la app funciona sin Supabase ni Clerk. */
 export const USAR_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'

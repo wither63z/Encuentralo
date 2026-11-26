@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Boton, Navbar } from './components'
 import { TEXTOS } from './config'
-import { PaginaInspector } from './features'
+import { PaginaInspector, PaginaQuePerdiste } from './features'
 import { useNavegacion } from './hooks'
 import {
   PaginaConfirmacion, PaginaDetalle, PaginaInicio, PaginaListado, PaginaLogin, PaginaReclamo,
@@ -31,7 +31,8 @@ export default function App() {
         {renderizarVista(vista)}
       </main>
       <footer aria-label={TEXTOS.pie.etiqueta} className="border-t border-borde bg-superficie">
-        <div className="mx-auto flex max-w-5xl justify-center px-4 py-2">
+        <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-2 px-4 py-2">
+          <Boton variante="texto" onClick={() => irA({ tipo: 'coincidencias' })}>{TEXTOS.pie.quePerdiste}</Boton>
           <Boton variante="texto" onClick={() => irA({ tipo: 'inspector' })}>{TEXTOS.pie.modoInspector}</Boton>
         </div>
       </footer>
@@ -54,6 +55,8 @@ export default function App() {
         return <PaginaConfirmacion resultado={actual.resultado} mensaje={mensajeResultado} onVolverListado={() => irA({ tipo: 'listado' })} />
       case 'inspector':
         return <PaginaInspector />
+      case 'coincidencias':
+        return <PaginaQuePerdiste onAbrir={(id) => irA({ tipo: 'detalle', id })} />
     }
   }
 }
