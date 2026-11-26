@@ -10,6 +10,7 @@ export const TEXTOS = {
   },
   inicio: {
     tituloPasos: 'Cómo funciona',
+    leyendaTitulo: 'Estados de un objeto',
     pasos: [
       { titulo: 'Busca', texto: 'Escribe el nombre del objeto o filtra por categoría y estado.' },
       { titulo: 'Revisa', texto: 'Abre el detalle y confirma el lugar, la fecha y la descripción.' },
@@ -104,6 +105,21 @@ export const TEXTOS = {
     modoInspector: 'Modo inspector',
     quePerdiste: '¿Qué perdiste?',
     etiqueta: 'Herramientas de la demostración',
+  },
+  coincidencias: {
+    titulo: '¿Qué perdiste?',
+    explicacion: 'Cuéntanos cómo es tu objeto y te mostramos los 3 objetos disponibles más parecidos.',
+    etiquetaTexto: 'Describe tu objeto (Ej. chompa azul con capucha)',
+    ayudaTexto: 'Usa palabras como el nombre, el color o una marca.',
+    errorTexto: 'Escribe una descripción para poder buscar.',
+    etiquetaCategoria: 'Categoría',
+    todas: 'Todas',
+    etiquetaLugar: 'Lugar donde crees que lo perdiste (opcional)',
+    buscar: 'Buscar coincidencias',
+    tituloResultados: 'Los más parecidos',
+    sinResultados: 'No encontramos objetos disponibles parecidos. Prueba con otras palabras o revisa el listado completo.',
+    puntos: 'puntos',
+    verDetalle: 'Ver detalle',
   },
   cargando: 'Cargando…',
 } as const
