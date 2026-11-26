@@ -8,6 +8,14 @@ export const TEXTOS = {
     explicacion:
       'Revisa los objetos perdidos y encontrados de tu colegio. Si encuentras el tuyo, haz un reclamo en pocos pasos.',
   },
+  inicio: {
+    tituloPasos: 'Cómo funciona',
+    pasos: [
+      { titulo: 'Busca', texto: 'Escribe el nombre del objeto o filtra por categoría y estado.' },
+      { titulo: 'Revisa', texto: 'Abre el detalle y confirma el lugar, la fecha y la descripción.' },
+      { titulo: 'Reclama', texto: 'Envía tu reclamo con una seña que solo el dueño conoce.' },
+    ],
+  },
   menu: { inicio: 'Inicio', listado: 'Objetos', ingresar: 'Ingresar' },
   acciones: {
     verObjetos: 'Ver objetos',
@@ -30,6 +38,8 @@ export const TEXTOS = {
     todos: 'Todos',
     sinResultados: 'No encontramos objetos con esos filtros. Prueba con otra palabra o quita los filtros.',
     vacio: 'Todavía no hay objetos registrados.',
+    contador: (mostrados: number, total: number) =>
+      mostrados === total ? `${total} objetos` : `Mostrando ${mostrados} de ${total} objetos`,
   },
   detalle: {
     lugar: 'Lugar',
