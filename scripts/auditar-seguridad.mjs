@@ -3,7 +3,9 @@
 import { execSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 
-const EXCLUIDOS = new Set(['.env.example', 'package-lock.json', 'scripts/auditar-seguridad.mjs'])
+const EXCLUIDOS = new Set(['.env.example', 'package-lock.json', 'scripts/auditar-seguridad.mjs',
+  // Menciona service_role solo para RECHAZAR esas claves (falso positivo revisado).
+  'scripts/verificar-supabase.mjs'])
 const EXTENSIONES_CODIGO = /\.(ts|tsx|js|mjs|cjs|jsx|sql|html|json)$/
 const PATRONES_SECRETOS = [
   { nombre: 'Clave secreta sk_/sk-', regex: /\bsk[_-](?:live_|test_|ant-|proj-)?[A-Za-z0-9_-]{20,}/, severidad: 'crítico' },
