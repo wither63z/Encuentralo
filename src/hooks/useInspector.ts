@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react'
 import { TEXTOS } from '../config'
 import { obtenerRepositorio, restablecerDatosDemo } from '../services'
-import type { Objeto, ResultadoReclamo } from '../types'
+import type { Objeto, ReclamoRegistrado, ResultadoReclamo } from '../types'
 
 // Entrada: nada · Proceso: carga todos los objetos y permite al inspector marcar uno
-// Reclamado como Entregado · Salida: { objetos, cargando, error, marcarEntregado, procesando, reintentar, restablecer }.
+// Reclamado como Entregado · Salida: { objetos, reclamos, cargando, error, marcarEntregado, procesando, reintentar, restablecer }.
 export function useInspector() {
   const [objetos, setObjetos] = useState<Objeto[]>([])
+  const [reclamos, setReclamos] = useState<ReclamoRegistrado[]>([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState<string | null>(null)
   /** id del objeto que se está guardando (null si no hay ninguno). */
@@ -16,7 +17,10 @@ export function useInspector() {
     setCargando(true)
     setError(null)
     try {
-      setObjetos(await obtenerRepositorio().listar())
+      const repositorio = obtenerRepositorio()
+      const [lista, datosReclamos] = await Promise.all([repositorio.listar(), repositorio.listarReclamos()])
+      setObjetos(lista)
+      setReclamos(datosReclamos)
     } catch {
       setError(TEXTOS.errores.cargar)
     } finally {
@@ -52,5 +56,5 @@ export function useInspector() {
     await cargar()
   }
 
-  return { objetos, cargando, error, marcarEntregado, procesando, reintentar: cargar, restablecer }
+  return { objetos, reclamos, cargando, error, marcarEntregado, procesando, reintentar: cargar, restablecer }
 }

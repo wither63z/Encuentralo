@@ -1,5 +1,5 @@
 import { TEXTOS } from '../config'
-import type { Objeto } from '../types'
+import type { Objeto, ReclamoRegistrado } from '../types'
 import { esReclamoValido, validarReclamo } from '../utils'
 import type { RepositorioObjetos } from './RepositorioObjetos'
 import { reportarObjetoSupabase } from './reportarSupabase'
@@ -44,6 +44,15 @@ export const repositorioSupabase: RepositorioObjetos = {
     const { data, error } = await obtenerClienteSupabase().rpc('marcar_entregado', { p_objeto: objetoId })
     if (error) return { ok: false, mensaje: TEXTOS.errores.entregar }
     return data === true ? { ok: true } : { ok: false, mensaje: TEXTOS.errores.noReclamado }
+  },
+
+  // Entrada: nada · Proceso: función listar_reclamos (la base exige rol profesor en el token)
+  // Salida: reclamos con nombre, curso y seña; lista vacía si no hay permiso o falla.
+  async listarReclamos() {
+    const { data, error } = await obtenerClienteSupabase().rpc('listar_reclamos')
+    if (error || !Array.isArray(data)) return []
+    return (data as { objeto_id: number; nombre: string; curso: string; sena: string; creado_en: string }[])
+      .map((r): ReclamoRegistrado => ({ objetoId: r.objeto_id, nombre: r.nombre, curso: r.curso, sena: r.sena, creadoEn: r.creado_en }))
   },
 
   reportarObjeto: reportarObjetoSupabase,

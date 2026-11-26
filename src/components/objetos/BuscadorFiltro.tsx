@@ -6,7 +6,7 @@ export interface BuscadorFiltroProps {
   onCambio: (filtros: FiltrosObjetos) => void
 }
 
-const claseControl = 'min-h-11 w-full rounded-lg border border-borde bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
+const claseControl = 'min-h-11 w-full rounded-lg border border-borde-control bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
 
 // Entrada: filtros actuales · Proceso: copia los filtros cambiando solo el campo editado
 // Salida: caja de búsqueda + selectores de categoría y estado.

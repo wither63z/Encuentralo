@@ -1,24 +1,35 @@
 # Ficha del proyecto
 
-- **Colegio:** Técnico Salesiano
-- **Integrantes:** William · Gabriel · Mister
-- **Nombre del proyecto:** Encuéntralo
-- **Problema:** cuando alguien pierde algo en el colegio no sabe si fue encontrado ni dónde preguntar; los objetos se acumulan sin dueño y los reclamos se hacen de palabra, sin registro.
-- **Usuarios:** estudiantes, docentes y personal del colegio que perdieron un objeto; el inspector que guarda los objetos encontrados.
-- **Objetivo:** que cualquier persona de la comunidad encuentre su objeto en menos de un minuto desde el celular y deje un reclamo verificable.
-- **Propuesta de valor:** lista pública y siempre actualizada de objetos encontrados, con búsqueda sin tildes, filtros, estados claros (Disponible, Reclamado, Entregado) y un reclamo que exige una seña particular para evitar reclamos falsos.
-- **Funciones principales:**
-  1. Explorar la lista de objetos encontrados (tarjetas con nombre, fecha, categoría y estado).
-  2. Buscar por texto y filtrar por categoría y estado, con mensaje cuando no hay resultados.
-  3. Ver el detalle completo con ícono de categoría y botón «Reclamar» (solo si está Disponible).
-  4. Registrar un reclamo de prueba (nombre, curso y seña de al menos 10 caracteres) y recibir confirmación.
-  5. Innovación «¿Qué perdiste?»: el estudiante describe su objeto y la app sugiere los 3 objetos Disponibles más parecidos, con puntaje y razones (mínimo 40 puntos).
-- **Para destacar (opcionales del enunciado, todos implementados):** formulario «Reportar objeto encontrado» con foto; Modo inspector para marcar Entregado (solo profesores); datos que se conservan al cerrar y abrir (Supabase); conteo de objetos por estado; además, Radar de inspección (objetos estancados más de 5 días y top 3 de lugares y categorías).
-- **Plataforma:** Web responsive (móvil y escritorio), también empaquetada como .exe (Windows) y APK (Android).
-- **Tecnologías:** Vite, React 19, TypeScript, Tailwind CSS v4, Phosphor Icons, Vitest; Supabase (base de datos PostgreSQL con RLS y Storage para fotos); Clerk (inicio de sesión verificado y rol de profesor); Capacitor (APK Android); Electron (.exe Windows); Cloudflare Workers y GitHub Pages (web publicada).
-- **Dónde se guardan los datos:** en Supabase (tablas `objetos` y `reclamos`, fotos en Storage); los permisos se controlan con RLS y funciones en el servidor. Si Supabase no responde, la app usa un respaldo local en el dispositivo (localStorage). En desarrollo se puede usar el modo demo sin internet (`VITE_USE_MOCK=true`).
-- **Cómo ejecutar:** web publicada https://encuentralo.encuentralo.workers.dev/app/ (login primero); descargas en https://github.com/wither63z/Encuentralo/releases/latest (Encuentralo.apk y Encuentralo.exe, sin login). En local: ver README.md, sección "Cómo ejecutar el proyecto".
-- **Datos simulados adicionales:** ids 11 a 25 en `src/data/objetosExtra.ts`. Son 15 objetos **ficticios** creados por el equipo (no forman parte del enunciado) para probar búsqueda, filtros y «¿Qué perdiste?». Los ids 1 a 10 son los datos oficiales del enunciado, cargados tal cual en `src/data/objetosPrueba.ts` y en Supabase (`supabase/instalar_todo.sql`). En Supabase también hay un objeto reportado durante las pruebas («Botella de prueba», id 1000, con foto ficticia de un objeto). Para volver al estado inicial antes de la demostración: `supabase/05_reiniciar_demo.sql`.
+Mentes que Programan 2026 · Categoría B (Software + IA) · Reto «Encuéntralo»
+
+| Dato | Respuesta del equipo |
+|---|---|
+| **Colegio** | Técnico Salesiano |
+| **Integrantes** | William · Gabriel · Mister |
+| **Nombre del proyecto** | Encuéntralo |
+| **Problema que resuelve** | En la inspección se acumulan chompas, cartucheras, termos y calculadoras que nadie reclama: los estudiantes no saben qué se encontró ni dónde preguntar, y los reclamos se hacen de palabra, sin registro. |
+| **Usuarios destinatarios** | Estudiantes, docentes y personal que perdieron un objeto (consultan y reclaman) y los profesores o inspectores que guardan y entregan los objetos (Modo inspector). |
+| **Objetivo de la aplicación** | Que cualquier persona de la comunidad encuentre su objeto en menos de un minuto desde el celular o la computadora y deje un reclamo verificable que el inspector pueda confirmar antes de entregar. |
+| **Propuesta de valor** | Lista siempre actualizada y con fotos, búsqueda sin tildes y filtros; «¿Qué perdiste?» sugiere los objetos más parecidos; cada reclamo pide una seña que el profesor compara antes de entregar; cuentas verificadas y permisos comprobados en el servidor; funciona en web, Android y Windows, y sigue funcionando si se cae internet. |
+| **Funciones principales (3 a 5)** | 1. Explorar la lista de objetos (tarjetas con nombre, fecha, categoría, estado y foto). 2. Buscar y filtrar por texto, categoría y estado, con mensaje cuando no hay resultados. 3. Ver el detalle y reclamar (nombre, curso y seña de mínimo 10 caracteres) con confirmación; solo objetos Disponibles. 4. «¿Qué perdiste?»: describe tu objeto y la app sugiere los 3 Disponibles más parecidos con puntaje. 5. Modo inspector (solo profesores): ve quién reclamó y su seña, marca Entregado, conteo por estado y Radar (objetos estancados más de 5 días y lugares con más hallazgos). Extra: reportar objeto encontrado con foto. |
+| **Plataforma: web, móvil o escritorio** | Web responsive (plataforma declarada); además, empaquetada como APK (Android) y .exe portable (Windows) con el mismo código. |
+| **Tecnologías utilizadas** | React 19, TypeScript, Vite, Tailwind CSS v4, Phosphor Icons, Vitest (42 pruebas); Supabase (PostgreSQL con RLS y Storage para fotos); Clerk (login con correo verificado o Google, rol de profesor); Capacitor (APK); Electron (.exe); Cloudflare Workers y GitHub Pages (publicación). |
+| **Dónde se guardan los datos** | En Supabase: tablas `objetos` y `reclamos` y fotos en Storage. Nadie escribe directo en las tablas: todo pasa por funciones del servidor que validan (un reclamo por objeto, máximo 3 por cuenta, solo profesores entregan o leen reclamos). Si Supabase no responde, la app usa un respaldo local en el dispositivo (localStorage). |
+| **Cómo ejecutar o instalar el proyecto** | Web: https://encuentralo.encuentralo.workers.dev/app/ (iniciar sesión). Android: descargar `Encuentralo.apk` de https://github.com/wither63z/Encuentralo/releases/latest y permitir orígenes desconocidos. Windows: descargar `Encuentralo.exe` (portable, sin instalar). Local: `npm install`, `copy .env.example .env`, `npm run dev` (detalles en README.md). |
+| **Datos simulados adicionales** | Además de los 10 objetos oficiales (ids 1–10, sin cambios), 15 objetos ficticios creados por el equipo (ids 11–25, tabla abajo) para probar búsqueda, filtros y «¿Qué perdiste?». En Supabase también hay objetos reportados durante las pruebas (id 1000 «Botella de prueba», con foto ficticia de un objeto). Ningún dato es real ni contiene fotos de personas. |
+
+## Registro de uso de IA
+
+| Herramienta | Instrucción (prompt) | Qué devolvió | Qué aceptamos, cambiamos o descartamos | Cómo lo verificamos |
+|---|---|---|---|---|
+| Claude Code (William) | "Arma la estructura del proyecto contract-first: tipos, textos, reglas 1–6 como funciones puras con pruebas y un repositorio mock con los 10 datos oficiales." | `src/types`, `src/config`, `src/utils` (puedeReclamar, validarReclamo, filtrarObjetos), repositorio mock y 10 pruebas. | Aceptado como base. Cambiamos: todos los textos a un solo archivo (`TEXTOS`) y límite de 150 líneas por archivo para poder explicar el código. | `npm run typecheck`, `npm run test` (10/10) y recorrido en el navegador Inicio → Listado → Detalle → Reclamo → Confirmación (reglas 3–6). |
+| Claude Code (Gabriel) | "Implementa «¿Qué perdiste?»: muestra los 3 objetos Disponibles más parecidos; +20 por palabra (tope 60), +25 por categoría, +15 por lugar, con razones y tests." | Lógica de puntaje, formulario, resultados y 7 pruebas. | Cambiamos: sugería objetos solo por coincidir la categoría (25 puntos, resultados sin sentido); pusimos `PUNTAJE_MINIMO = 40` y ajustamos 3 pruebas. Descartamos sugerir objetos Reclamados o Entregados. | Pruebas (a)–(d) del puntaje; búsqueda «chompa azul con capucha» devuelve el id 1 con 100 puntos. |
+| Claude Code (William) | "Que solo los profesores puedan usar el modo inspector y los estudiantes no; que no se puedan crear cuentas falsas." | Rol `profesor` en Clerk, función SQL que revisa el rol en el token y botón del inspector solo para profesores. | Cambiamos: el registro fallaba por un SDK de Clerk obsoleto (actualizamos a `@clerk/react` 6) y el rol se leía una sola vez (pasamos al hook `useUser`). Agregamos bloqueo de correos desechables. | Prueba real: cuenta sin rol → el botón no aparece; petición anónima a `marcar_entregado` → «permission denied»; profesor → marca Entregado en Supabase. |
+| Codex (ChatGPT) | Ver `docs/BITACORA_IA.md`, fila 18 (prompt completo de «¿Dónde buscar?»). | *Completar al terminar.* | *Completar al terminar.* | `npm run typecheck && npm run verificar && npm run test && npm run build`. |
+
+El registro completo (18 usos) está en `docs/BITACORA_IA.md` y la declaración (Anexo B) en `docs/DECLARACION_IA.md`.
+
+## Anexo: datos simulados adicionales (ids 11–25)
 
 | id | Objeto | Categoría | Estado |
 |---|---|---|---|

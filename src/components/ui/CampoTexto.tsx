@@ -15,7 +15,7 @@ export interface CampoTextoProps {
 // Entrada: valor, etiqueta y error · Proceso: input o textarea con label visible y aria
 // Salida: campo accesible con mensaje de error junto al campo y contador opcional.
 export function CampoTexto({ id, etiqueta, valor, onChange, error, multilinea, minimo, ayuda, textoContador }: CampoTextoProps) {
-  const clases = `w-full rounded-lg border bg-superficie px-3 py-2 min-h-11 focus-visible:outline-2 focus-visible:outline-marca ${error ? 'border-error' : 'border-borde'}`
+  const clases = `w-full rounded-lg border bg-superficie px-3 py-2 min-h-11 focus-visible:outline-2 focus-visible:outline-marca ${error ? 'border-error' : 'border-borde-control'}`
   const idAyuda = `${id}-ayuda`
   const props = {
     id,

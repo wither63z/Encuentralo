@@ -42,6 +42,15 @@ export interface DatosReclamo {
   sena: string
 }
 
+/** Reclamo guardado: lo ve el profesor en el Modo inspector para verificar al dueño. */
+export interface ReclamoRegistrado {
+  objetoId: number
+  nombre: string
+  curso: string
+  sena: string
+  creadoEn?: string
+}
+
 export type ErroresReclamo = Partial<Record<keyof DatosReclamo, string>>
 
 export interface ResultadoReclamo {

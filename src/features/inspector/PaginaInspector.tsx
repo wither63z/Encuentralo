@@ -6,6 +6,7 @@ import type { Objeto } from '../../types'
 import { contarPorEstado, formatearFecha, puedeEntregar } from '../../utils'
 import { PanelRadar } from '../radar/PanelRadar'
 import { ConteoEstados } from './ConteoEstados'
+import { DatosReclamo } from './DatosReclamo'
 
 interface Aviso {
   tipo: 'exito' | 'error'
@@ -15,7 +16,7 @@ interface Aviso {
 // Entrada: nada · Proceso: muestra el conteo por estado y la lista de Reclamados; el inspector
 // marca uno como Entregado · Salida: vista del inspector con carga, error, vacío y avisos.
 export function PaginaInspector({ onAbrir }: { onAbrir?: (id: number) => void }) {
-  const { objetos, cargando, error, marcarEntregado, procesando, reintentar, restablecer } = useInspector()
+  const { objetos, reclamos, cargando, error, marcarEntregado, procesando, reintentar, restablecer } = useInspector()
   const [aviso, setAviso] = useState<Aviso | null>(null)
   const conteo = useMemo(() => contarPorEstado(objetos), [objetos])
   const reclamados = useMemo(() => objetos.filter(puedeEntregar), [objetos])
@@ -68,6 +69,7 @@ export function PaginaInspector({ onAbrir }: { onAbrir?: (id: number) => void })
                     <span className="font-semibold">{objeto.nombre}</span>
                     <span className="text-sm text-texto-suave">{objeto.lugar} · {formatearFecha(objeto.fecha)}</span>
                     <div><EstadoBadge estado={objeto.estado} /></div>
+                    <DatosReclamo reclamo={reclamos.find((r) => r.objetoId === objeto.id)} />
                   </div>
                   <Boton variante="primario" disabled={procesando !== null} onClick={() => void entregar(objeto)}>
                     {procesando === objeto.id ? TEXTOS.inspector.guardando : TEXTOS.inspector.marcarEntregado}

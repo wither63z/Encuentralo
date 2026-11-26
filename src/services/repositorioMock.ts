@@ -4,6 +4,7 @@ import type { Objeto } from '../types'
 import { esReclamoValido, hoyIso, puedeEntregar, puedeReclamar, validarNuevoObjeto, validarReclamo } from '../utils'
 import { borrarAlmacen, guardarAlmacen, leerAlmacen } from './almacenLocal'
 import type { RepositorioObjetos } from './RepositorioObjetos'
+import { borrarReclamosMock, guardarReclamoMock, listarReclamosMock } from './reclamosMock'
 
 const copiarOficiales = (): Objeto[] => OBJETOS_PRUEBA.map((objeto) => ({ ...objeto }))
 
@@ -16,10 +17,17 @@ const esperar = () => new Promise((resolver) => setTimeout(resolver, LATENCIA_MO
 // oficiales · Salida: almacén reiniciado.
 export function restablecerDatosDemo(): void {
   borrarAlmacen()
+  borrarReclamosMock()
   almacen = copiarOficiales()
 }
 
 export const repositorioMock: RepositorioObjetos = {
+  // Entrada: nada · Proceso: espera simulada · Salida: reclamos guardados en este dispositivo.
+  async listarReclamos() {
+    await esperar()
+    return listarReclamosMock()
+  },
+
   // Entrada: nada · Proceso: espera simulada · Salida: copia de todos los objetos.
   async listar() {
     await esperar()
@@ -43,6 +51,7 @@ export const repositorioMock: RepositorioObjetos = {
     if (!esReclamoValido(validarReclamo(datos))) return { ok: false, mensaje: TEXTOS.confirmacion.textoError }
     objeto.estado = 'Reclamado'
     guardarAlmacen(almacen)
+    guardarReclamoMock(objetoId, datos)
     return { ok: true }
   },
 

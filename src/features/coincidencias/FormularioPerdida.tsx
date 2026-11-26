@@ -10,7 +10,7 @@ export interface FormularioPerdidaProps {
   onBuscar: (descripcion: DescripcionPerdida) => void
 }
 
-const claseSelect = 'min-h-11 w-full rounded-lg border border-borde bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
+const claseSelect = 'min-h-11 w-full rounded-lg border border-borde-control bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
 
 // Entrada: función onBuscar · Proceso: guarda los campos en estado local y valida que haya texto
 // Salida: formulario que entrega la DescripcionPerdida solo si el texto no está vacío.

@@ -29,6 +29,7 @@ const repositorioResiliente: RepositorioObjetos = {
   obtener: (id) => conRespaldo((r) => r.obtener(id)),
   crearReclamo: (id, datos) => (enModoRespaldo ? repositorioMock : repositorioSupabase).crearReclamo(id, datos),
   marcarEntregado: (id) => (enModoRespaldo ? repositorioMock : repositorioSupabase).marcarEntregado(id),
+  listarReclamos: () => conRespaldo((r) => r.listarReclamos()),
   reportarObjeto: (datos) => (enModoRespaldo ? repositorioMock : repositorioSupabase).reportarObjeto(datos),
 }
 

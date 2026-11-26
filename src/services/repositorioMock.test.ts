@@ -43,4 +43,10 @@ describe('Regla 3: repositorioMock.crearReclamo', () => {
     expect((await repositorioMock.crearReclamo(2, { ...datos, sena: 'corta' })).ok).toBe(false)
     expect((await repositorioMock.obtener(2))?.estado).toBe('Disponible')
   })
+
+  it('guarda nombre, curso y seña para que el inspector verifique al dueño', async () => {
+    await repositorioMock.crearReclamo(1, datos)
+    const [reclamo] = await repositorioMock.listarReclamos()
+    expect(reclamo).toMatchObject({ objetoId: 1, nombre: 'Ana Pérez', curso: '2do BGU A', sena: datos.sena })
+  })
 })

@@ -8,7 +8,7 @@ import { SelectorFoto } from './SelectorFoto'
 
 const T = TEXTOS.reportar
 const VACIO: DatosNuevoObjeto = { nombre: '', categoria: '', lugar: '', fecha: hoyIso(), descripcion: '' }
-const claseControl = 'min-h-11 w-full rounded-lg border border-borde bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
+const claseControl = 'min-h-11 w-full rounded-lg border border-borde-control bg-superficie px-3 focus-visible:outline-2 focus-visible:outline-marca'
 
 export interface PaginaReportarProps {
   onRegistrado: (id: number, aviso?: string) => void
