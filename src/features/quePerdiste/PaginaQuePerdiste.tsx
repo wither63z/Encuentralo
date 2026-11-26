@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { Cargando, MensajeError } from '../../components'
+import { TEXTOS } from '../../config'
 import { useObjetos } from '../../hooks'
 import {
-  FormularioPerdida, ResultadosCoincidencias, TEXTOS_COINCIDENCIAS as T, buscarCoincidencias,
+  FormularioPerdida, ResultadosCoincidencias, buscarCoincidencias,
   type Coincidencia, type DescripcionPerdida,
 } from '../coincidencias'
 
 // Entrada: acción para abrir un objeto · Proceso: carga los objetos y, al buscar, calcula
 // las 3 coincidencias Disponibles más parecidas · Salida: formulario + resultados.
+const T = TEXTOS.coincidencias
+
 export function PaginaQuePerdiste({ onAbrir }: { onAbrir: (id: number) => void }) {
   const { objetos, cargando, error, reintentar } = useObjetos()
   const [coincidencias, setCoincidencias] = useState<Coincidencia[]>([])
