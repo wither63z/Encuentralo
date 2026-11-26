@@ -6,6 +6,7 @@ export const TEXTOS = {
   app: {
     nombre: 'Encuéntralo',
     lema: 'Objetos perdidos · Técnico Salesiano',
+    aviso: 'Proyecto de práctica con datos ficticios.',
     explicacion:
       'Revisa los objetos perdidos y encontrados de tu colegio. Si encuentras el tuyo, haz un reclamo en pocos pasos.',
   },
@@ -53,8 +54,8 @@ export const TEXTOS = {
     razonEntregado: 'Este objeto ya fue entregado a su dueño.',
   },
   reclamo: {
-    titulo: 'Reclamar objeto',
-    intro: 'Completa tus datos. Los tres campos son obligatorios.',
+    titulo: 'Reclamar',
+    intro: 'Completa los tres campos. Son datos de prueba.',
     nombre: 'Nombre completo',
     curso: 'Curso',
     sena: 'Seña particular del objeto',
@@ -85,6 +86,7 @@ export const TEXTOS = {
   },
   login: {
     titulo: 'Ingresa para reclamar',
+    subtitulo: 'Entra con tu cuenta del colegio para reclamar objetos.',
     sinLogin: 'El ingreso no está activo en esta demostración; puedes reclamar directamente.',
   },
   inspector: {

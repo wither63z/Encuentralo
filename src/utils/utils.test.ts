@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { OBJETOS_PRUEBA } from '../data'
 import { FILTROS_INICIALES, filtrarObjetos } from './filtrarObjetos'
-import { formatearFecha } from './formatearFecha'
+import { formatearFecha, formatearFechaCorta } from './formatearFecha'
 import { puedeReclamar } from './puedeReclamar'
 import { esReclamoValido, validarReclamo } from './validarReclamo'
 
@@ -65,5 +65,6 @@ describe('Regla 6: filtrarObjetos', () => {
 describe('formatearFecha', () => {
   it('no se desfasa por zona horaria', () => {
     expect(formatearFecha('2026-11-18')).toBe('18 de noviembre de 2026')
+    expect(formatearFechaCorta('2026-11-18')).toBe('18 nov 2026')
   })
 })
