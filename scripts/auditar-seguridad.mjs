@@ -6,6 +6,7 @@ import { existsSync, readFileSync } from 'node:fs'
 const EXCLUIDOS = new Set(['.env.example', 'package-lock.json', 'scripts/auditar-seguridad.mjs',
   // Menciona service_role solo para RECHAZAR esas claves (falso positivo revisado).
   'scripts/verificar-supabase.mjs'])
+const ENV_PUBLICABLES = new Set(['.env.production', '.env.web'])
 const EXTENSIONES_CODIGO = /\.(ts|tsx|js|mjs|cjs|jsx|sql|html|json)$/
 const PATRONES_SECRETOS = [
   { nombre: 'Clave secreta sk_/sk-', regex: /\bsk[_-](?:live_|test_|ant-|proj-)?[A-Za-z0-9_-]{20,}/, severidad: 'crítico' },
@@ -48,7 +49,8 @@ function ejecutar(comando) {
 // Entrada: archivos de `git ls-files` · Proceso: aplica PATRONES_SECRETOS línea por línea
 // Salida: hallazgos registrados (secreto enmascarado, nunca completo).
 function buscarSecretos(archivos) {
-  for (const archivo of archivos.filter((a) => !EXCLUIDOS.has(a) && existsSync(a))) {
+  // .claude/skills: documentación de terceros con ejemplos de configuración (no es código del proyecto).
+  for (const archivo of archivos.filter((a) => !EXCLUIDOS.has(a) && !a.startsWith('.claude/skills/') && existsSync(a))) {
     const lineas = readFileSync(archivo, 'utf8').split('\n')
     lineas.forEach((linea, indice) => {
       for (const { nombre, regex, severidad } of PATRONES_SECRETOS) {
@@ -66,7 +68,12 @@ function buscarSecretos(archivos) {
 // Salida: hallazgos críticos/altos si falta protección.
 function revisarIgnorados(archivos) {
   const envVersionados = archivos.filter((a) => /(^|\/)\.env(\..+)?$/.test(a) && !a.endsWith('.env.example'))
-  for (const archivo of envVersionados) registrar('crítico', archivo, 'Archivo .env versionado en git')
+  for (const archivo of envVersionados) {
+    // .env.production y .env.web se versionan a propósito con SOLO claves publicables (van al JS público).
+    // Siguen revisándose: cualquier clave secreta dentro los vuelve críticos.
+    const publicable = ENV_PUBLICABLES.has(archivo) && !/sb_secret_|service_role|sk_(test|live)_/i.test(readFileSync(archivo, 'utf8'))
+    if (!publicable) registrar('crítico', archivo, 'Archivo .env versionado en git')
+  }
   const reglas = existsSync('.gitignore') ? readFileSync('.gitignore', 'utf8').split(/\r?\n/).map((l) => l.trim()) : []
   for (const entrada of ENTRADAS_GITIGNORE) {
     if (!reglas.includes(entrada)) registrar('alto', '.gitignore', `Falta la entrada "${entrada}"`)
