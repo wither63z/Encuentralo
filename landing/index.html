@@ -4,137 +4,413 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Encuéntralo · Objetos perdidos del Técnico Salesiano</title>
-  <meta name="description" content="Encuéntralo: objetos perdidos del Técnico Salesiano. Úsala en el navegador o descárgala para Android y Windows.">
+  <meta name="description" content="Encuéntralo: busca, revisa y reclama objetos perdidos del Técnico Salesiano. Descarga la app para Android o Windows, o úsala en el navegador.">
   <meta name="theme-color" content="#1D4ED8">
-  <link rel="icon" type="image/png" href="./icono-encuentralo.png">
+  <link rel="icon" href="./icono-encuentralo.png" type="image/png">
   <link rel="stylesheet" href="./estilos.css">
 </head>
 <body>
   <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <div class="progreso" aria-hidden="true"></div>
 
-  <header class="barra">
-    <a class="marca" href="#inicio" aria-label="Encuéntralo, inicio">
-      <img src="./icono-encuentralo.png" alt="" width="40" height="40">
-      <span>Encuéntralo</span>
-    </a>
-    <nav aria-label="Secciones">
-      <a href="#funciones">Funciones</a>
-      <a href="#como">Cómo funciona</a>
-      <a href="#descargas">Descargar</a>
-      <a class="nav-cta" href="./app/">Abrir app</a>
-    </nav>
+  <!-- Íconos SVG de trazo reutilizables (sin dependencias). -->
+  <svg width="0" height="0" class="oculto" aria-hidden="true" focusable="false">
+    <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-ojo" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-mano" viewBox="0 0 24 24"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V4a2 2 0 0 1 4 0v7"/><path d="M17 8a2 2 0 0 1 4 0v6a8 8 0 0 1-8 8h-1a7 7 0 0 1-6-3.5L3 14a2 2 0 0 1 3.4-2L9 15V8"/></symbol>
+    <symbol id="i-camara" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+    <symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-paquete" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+    <symbol id="i-sin-red" viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M10.7 5.1A15 15 0 0 1 22 8.8M5 12.6a10 10 0 0 1 3.4-2M15.5 10.6A10 10 0 0 1 19 12.6M8.5 16.4a5 5 0 0 1 7 0"/><circle cx="12" cy="20" r=".6"/><path d="m3 3 18 18"/></symbol>
+    <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-chispa" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M5.6 18.4l2.8-2.8M15.6 8.4l2.8-2.8"/></symbol>
+    <symbol id="i-texto" viewBox="0 0 24 24"><path d="M4 7V5h16v2M9 19h6M12 5v14"/></symbol>
+    <symbol id="i-android" viewBox="0 0 24 24"><path d="M5 10h14v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7Z"/><path d="M5 10a7 7 0 0 1 14 0M7.5 4.5 9 6.5M16.5 4.5 15 6.5M2.5 11v5M21.5 11v5"/></symbol>
+    <symbol id="i-windows" viewBox="0 0 24 24"><path d="M3 5.5 10.5 4.5v7H3zM13 4.2 21 3v8.5h-8zM3 12.5h7.5v7L3 18.5zM13 12.5h8V21l-8-1.2z"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></symbol>
+    <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-abajo" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12 12 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></symbol>
+    <symbol id="i-usuario" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-candado" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 12 19 5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-correo" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-base" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-codigo" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+    <symbol id="i-grupo" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14a5 5 0 0 1 5 5"/></symbol>
+    <symbol id="i-pausa" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></symbol>
+  </svg>
+
+  <header class="cabecera">
+    <div class="contenedor cabecera-fila">
+      <a class="logo" href="#inicio" aria-label="Encuéntralo, ir al inicio">
+        <img class="logo-icono" src="./icono-encuentralo.png" alt="" width="40" height="40">
+        <span class="logo-texto" aria-hidden="true">
+          <span class="logo-nombre">Encuéntral<svg class="logo-lupa" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6.2"/><path d="m14.6 14.6 5.4 5.4"/></svg></span>
+          <span class="logo-lema">Objetos perdidos · Técnico Salesiano</span>
+        </span>
+      </a>
+      <nav class="nav" aria-label="Secciones">
+        <ul>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#funciones">Funciones</a></li>
+          <li><a href="#profesores">Profesores</a></li>
+          <li><a href="#seguridad">Seguridad</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#instalar">Instalar</a></li>
+        </ul>
+      </nav>
+      <a class="boton boton-pastilla" href="#descargar">Descargar<svg class="ico" aria-hidden="true"><use href="#i-abajo"/></svg></a>
+    </div>
   </header>
 
   <main id="contenido">
-    <section id="inicio" class="hero">
-      <div class="hero-texto aparecer">
-        <p class="etiqueta">Técnico Salesiano · Mentes que Programan 2026</p>
-        <h1>Lo que pierdes en el colegio, <span class="resaltado">lo encuentras aquí.</span></h1>
-        <p class="bajada">Busca entre los objetos encontrados, filtra por lugar o categoría y reclama lo tuyo en segundos. Entras con tu correo verificado o con Google.</p>
-        <div class="acciones">
-          <a class="boton boton-principal" href="./app/">Abrir en el navegador</a>
-          <a class="boton boton-claro" href="#descargas">Descargar app</a>
+    <!-- Portada -->
+    <section class="hero" id="inicio" aria-labelledby="titulo-hero">
+      <div class="marco" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="contenedor hero-grid">
+        <div class="hero-texto">
+          <p class="ceja"><span class="ceja-punto" aria-hidden="true">▸</span> App de objetos perdidos del colegio</p>
+          <h1 id="titulo-hero" class="titulo-gigante">
+            <span class="linea"><span>Lo que se pierde</span></span>
+            <span class="linea"><span>en el colegio,</span></span>
+            <span class="linea"><span class="resalte">se encuentra aquí.</span></span>
+          </h1>
+          <p class="hero-sub">Busca tu chompa, tu calculadora o tu botella entre los objetos encontrados, revisa dónde apareció y reclámala en tres pasos. Entras con tu correo verificado o con Google.</p>
+
+          <div class="descargas" id="descargar">
+            <h2 class="oculto">Descargar Encuéntralo</h2>
+            <a class="boton boton-grande boton-primario" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk">
+              <svg class="ico ico-grande" aria-hidden="true"><use href="#i-android"/></svg>
+              <span><span class="boton-titulo">Descargar para Android (APK)</span><span class="boton-detalle">Celulares y tablets</span></span>
+            </a>
+            <a class="boton boton-grande boton-primario" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe">
+              <svg class="ico ico-grande" aria-hidden="true"><use href="#i-windows"/></svg>
+              <span><span class="boton-titulo">Descargar para Windows (.exe)</span><span class="boton-detalle">Portable: no requiere instalación</span></span>
+            </a>
+            <a class="boton boton-grande boton-secundario" href="./app/">
+              <svg class="ico ico-grande" aria-hidden="true"><use href="#i-web"/></svg>
+              <span><span class="boton-titulo">Usar en el navegador</span><span class="boton-detalle">Sin descargar nada</span></span>
+              <svg class="ico boton-flecha" aria-hidden="true"><use href="#i-flecha"/></svg>
+            </a>
+          </div>
+          <p class="meta">Android · Windows · Navegador — datos 100% ficticios</p>
+        </div>
+
+        <!-- Maqueta animada hecha con CSS: no es una captura real. -->
+        <figure class="demo" aria-labelledby="demo-leyenda">
+          <div class="telefono" aria-hidden="true">
+            <div class="telefono-barra"><span>9:41</span><span class="telefono-isla"></span><span>●●●</span></div>
+            <div class="app-cabecera">
+              <img src="./icono-encuentralo.png" alt="" width="22" height="22">
+              <b>Encuéntralo</b>
+            </div>
+            <div class="app-buscar">
+              <svg class="ico"><use href="#i-lupa"/></svg>
+              <span class="app-escribe">chompa</span><span class="app-cursor"></span>
+            </div>
+            <ul class="app-lista">
+              <li class="item item-1">
+                <span class="item-foto f-azul"></span>
+                <span class="item-info"><b>Chompa azul</b><small>Patio central · 24 nov</small></span>
+                <span class="estado estado-disponible estado-cambia"><svg class="ico"><use href="#i-ok"/></svg><span class="e-a">Disponible</span><span class="e-b">Reclamado</span></span>
+              </li>
+              <li class="item item-2">
+                <span class="item-foto f-gris"></span>
+                <span class="item-info"><b>Chompa gris</b><small>Laboratorio 2 · 21 nov</small></span>
+                <span class="estado estado-entregado"><svg class="ico"><use href="#i-paquete"/></svg>Entregado</span>
+              </li>
+              <li class="item item-3">
+                <span class="item-foto f-verde"></span>
+                <span class="item-info"><b>Chompa verde</b><small>Cancha · 19 nov</small></span>
+                <span class="estado estado-disponible"><svg class="ico"><use href="#i-ok"/></svg>Disponible</span>
+              </li>
+            </ul>
+            <span class="app-reclamar">Reclamar este objeto</span>
+            <span class="clic"></span>
+            <svg class="puntero" viewBox="0 0 24 24"><path d="M5 3l14 8-6 1.5L10 19z"/></svg>
+          </div>
+
+          <div class="registro" aria-hidden="true">
+            <div class="registro-barra"><i></i><i></i><i></i><span>encuéntralo · demo</span></div>
+            <p class="registro-etq">Objetivo</p>
+            <p class="registro-obj">Encontrar mi <em>chompa azul</em></p>
+            <p class="registro-etq">Pasos</p>
+            <ol class="registro-pasos">
+              <li class="r-1"><span>01</span><b>BUSCA</b>«chompa»</li>
+              <li class="r-2"><span>02</span><b>REVISA</b>Patio central</li>
+              <li class="r-3"><span>03</span><b>RECLAMA</b>con tu seña</li>
+            </ol>
+          </div>
+          <figcaption id="demo-leyenda" class="demo-leyenda">Ilustración animada de la app con objetos ficticios.</figcaption>
+          <button class="pausa" type="button" aria-pressed="false" hidden>
+            <svg class="ico ico-pausa" aria-hidden="true"><use href="#i-pausa"/></svg>
+            <svg class="ico ico-play" aria-hidden="true"><use href="#i-play"/></svg>
+            <span class="pausa-texto">Pausar animación</span>
+          </button>
+        </figure>
+      </div>
+      <a class="bajar" href="#como-funciona" aria-label="Bajar a Cómo funciona"><svg class="ico" aria-hidden="true"><use href="#i-abajo"/></svg></a>
+    </section>
+
+    <!-- 01 · Cómo funciona -->
+    <section class="seccion seccion-blanca" id="como-funciona" aria-labelledby="titulo-como">
+      <div class="contenedor">
+        <header class="seccion-cabeza revelar">
+          <p class="capitulo"><span>01</span> / Cómo funciona</p>
+          <h2 id="titulo-como" class="titulo-seccion">Tres pasos para <span class="resalte">recuperarlo.</span></h2>
+          <p class="seccion-intro">Sin formularios largos: encuentras, confirmas y reclamas.</p>
+        </header>
+        <ol class="pasos">
+          <li class="paso revelar">
+            <span class="paso-num" aria-hidden="true">01</span>
+            <svg class="ico paso-ico" aria-hidden="true"><use href="#i-lupa"/></svg>
+            <h3>Busca</h3>
+            <p>Escribe el nombre del objeto o filtra por categoría y estado.</p>
+          </li>
+          <li class="paso revelar">
+            <span class="paso-num" aria-hidden="true">02</span>
+            <svg class="ico paso-ico" aria-hidden="true"><use href="#i-ojo"/></svg>
+            <h3>Revisa</h3>
+            <p>Abre el detalle y confirma el lugar, la fecha y la descripción.</p>
+          </li>
+          <li class="paso revelar">
+            <span class="paso-num" aria-hidden="true">03</span>
+            <svg class="ico paso-ico" aria-hidden="true"><use href="#i-mano"/></svg>
+            <h3>Reclama</h3>
+            <p>Envía tu reclamo con una seña que solo el dueño conoce.</p>
+          </li>
+        </ol>
+        <div class="reporta revelar">
+          <svg class="ico reporta-ico" aria-hidden="true"><use href="#i-camara"/></svg>
+          <div>
+            <h3>¿Encontraste algo? Repórtalo con foto.</h3>
+            <p>Registra qué es, dónde y cuándo lo hallaste. Fotografía solo el objeto, nunca a personas.</p>
+          </div>
         </div>
       </div>
-      <div class="hero-arte aparecer" aria-hidden="true">
-        <span class="halo"></span>
-        <img class="logo-grande" src="./icono-encuentralo.png" alt="" width="280" height="280">
-        <span class="chispa c1">✦</span><span class="chispa c2">✦</span><span class="chispa c3">✦</span>
+    </section>
+
+    <!-- Banda de impacto -->
+    <section class="banda" aria-labelledby="titulo-banda">
+      <div class="contenedor banda-interior revelar">
+        <svg class="ico banda-ico" aria-hidden="true"><use href="#i-sin-red"/></svg>
+        <h2 id="titulo-banda" class="banda-titulo">Sin internet.</h2>
+        <p class="banda-sub">Si se cae la conexión, la app no se queda en blanco: cambia sola a un respaldo local para que la presentación siga.</p>
       </div>
     </section>
 
-    <section class="cifras aparecer" aria-label="Encuéntralo en cifras">
-      <div><strong>3</strong><span>pasos para reclamar</span></div>
-      <div><strong>3</strong><span>plataformas: web, Android y Windows</span></div>
-      <div><strong>0</strong><span>papeles: todo queda registrado</span></div>
-    </section>
+    <!-- 02 · Funciones -->
+    <section class="seccion seccion-oscura" id="funciones" aria-labelledby="titulo-funciones">
+      <div class="contenedor">
+        <header class="seccion-cabeza revelar">
+          <p class="capitulo"><span>02</span> / Funciones</p>
+          <h2 id="titulo-funciones" class="titulo-seccion">Pensada para <span class="resalte">el patio,</span> no para expertos.</h2>
+        </header>
 
-    <section id="como" class="seccion" aria-labelledby="titulo-como">
-      <h2 id="titulo-como" class="aparecer">Cómo funciona</h2>
-      <ol class="pasos">
-        <li class="paso aparecer"><span class="num">1</span><h3>Busca</h3><p>Escribe qué perdiste o filtra por lugar, categoría y estado.</p></li>
-        <li class="paso aparecer"><span class="num">2</span><h3>Revisa</h3><p>Mira la foto, dónde y cuándo se encontró el objeto.</p></li>
-        <li class="paso aparecer"><span class="num">3</span><h3>Reclama</h3><p>Envía tu reclamo; queda asociado a tu cuenta para retirarlo.</p></li>
-      </ol>
-    </section>
+        <div class="estados revelar">
+          <h3 class="estados-titulo">Cada objeto muestra su estado</h3>
+          <ul class="estados-lista">
+            <li><span class="estado estado-disponible"><svg class="ico" aria-hidden="true"><use href="#i-ok"/></svg>Disponible</span><span>Esperando a su dueño.</span></li>
+            <li><span class="estado estado-reclamado"><svg class="ico" aria-hidden="true"><use href="#i-reloj"/></svg>Reclamado</span><span>Alguien ya pidió recuperarlo.</span></li>
+            <li><span class="estado estado-entregado"><svg class="ico" aria-hidden="true"><use href="#i-paquete"/></svg>Entregado</span><span>Volvió a su dueño.</span></li>
+          </ul>
+        </div>
 
-    <section id="funciones" class="seccion" aria-labelledby="titulo-funciones">
-      <h2 id="titulo-funciones" class="aparecer">Todo lo que trae</h2>
-      <ul class="funciones">
-        <li class="funcion aparecer"><span class="f-icono">🔐</span><h3>Cuenta verificada</h3><p>Ingresas con Google o con tu correo verificado por código. Se bloquean correos desechables y cuentas duplicadas.</p></li>
-        <li class="funcion aparecer"><span class="f-icono">🔎</span><h3>Buscador y filtros</h3><p>Busca por nombre o lugar y filtra por categoría y estado: Disponible, Reclamado o Entregado.</p></li>
-        <li class="funcion aparecer"><span class="f-icono">✨</span><h3>¿Qué perdiste?</h3><p>Describe tu objeto y la app te sugiere los tres más parecidos con un puntaje de coincidencia.</p></li>
-        <li class="funcion aparecer"><span class="f-icono">📸</span><h3>Reporta con foto</h3><p>¿Encontraste algo? Regístralo con foto, lugar y fecha para que su dueño lo reconozca.</p></li>
-        <li class="funcion aparecer"><span class="f-icono">🛡️</span><h3>Reclamo seguro</h3><p>Cada reclamo queda ligado a tu cuenta y pide una seña que solo el dueño conoce.</p></li>
-        <li class="funcion aparecer"><span class="f-icono">📊</span><h3>Modo inspector y Radar</h3><p>Solo profesores: entregan objetos y ven cuáles llevan más de 5 días sin reclamar y dónde se pierden más cosas.</p></li>
-      </ul>
-    </section>
-
-    <section id="descargas" class="seccion descargas" aria-labelledby="titulo-descargas">
-      <h2 id="titulo-descargas" class="aparecer">Úsala donde quieras</h2>
-      <ul class="tarjetas-descarga">
-        <li class="aparecer">
-          <a class="descarga" href="./app/">
-            <span class="icono-plataforma">🌐</span>
-            <span class="d-titulo">Navegador</span>
-            <span class="d-detalle">Sin descargar nada</span>
-          </a>
-        </li>
-        <li class="aparecer">
-          <a class="descarga" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk">
-            <span class="icono-plataforma">🤖</span>
-            <span class="d-titulo">Android (APK)</span>
-            <span class="d-detalle">Celulares y tablets</span>
-          </a>
-        </li>
-        <li class="aparecer">
-          <a class="descarga" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe">
-            <span class="icono-plataforma">🪟</span>
-            <span class="d-titulo">Windows (.exe)</span>
-            <span class="d-detalle">Portable, sin instalar</span>
-          </a>
-        </li>
-      </ul>
-
-      <div class="instrucciones">
-        <details class="aparecer">
-          <summary>Cómo instalar en Android</summary>
-          <ol>
-            <li>Descarga <strong>Encuentralo.apk</strong> y ábrelo desde Descargas.</li>
-            <li>Si el celular lo bloquea, permite <strong>instalar apps de orígenes desconocidos</strong>.</li>
-            <li>Toca <strong>Instalar</strong> y abre Encuéntralo.</li>
-          </ol>
-        </details>
-        <details class="aparecer">
-          <summary>Cómo abrir en Windows</summary>
-          <ol>
-            <li>Descarga <strong>Encuentralo.exe</strong> y haz doble clic.</li>
-            <li>Si aparece SmartScreen, elige <strong>Más información → Ejecutar de todos modos</strong> (la app no tiene firma comercial).</li>
-            <li>Se abre directamente; no se instala nada.</li>
-          </ol>
-        </details>
+        <ul class="funciones">
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-texto"/></svg>
+            <h3>Búsqueda sin tildes</h3>
+            <p>«calculadora», «Calculadóra» o «CALCULADORA»: encuentra lo mismo.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-chispa"/></svg>
+            <h3>«¿Qué perdiste?»</h3>
+            <p>Describe tu objeto y te mostramos los 3 disponibles más parecidos.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-escudo"/></svg>
+            <h3>Modo inspector</h3>
+            <p>Solo profesores: marcan como entregados los objetos que ya volvieron a su dueño.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-sin-red"/></svg>
+            <h3>Respaldo sin internet</h3>
+            <p>Si Supabase no responde, la app sigue funcionando con datos locales.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-usuario"/></svg>
+            <h3>Cuenta verificada</h3>
+            <p>Login primero con Google o con correo confirmado por código.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-camara"/></svg>
+            <h3>Reporte con foto</h3>
+            <p>Quien encuentra algo lo registra con foto, lugar y fecha.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-radar"/></svg>
+            <h3>Radar de inspección</h3>
+            <p>Objetos estancados más de 5 días y los lugares donde más se pierde.</p>
+          </li>
+          <li class="funcion revelar">
+            <svg class="ico funcion-ico" aria-hidden="true"><use href="#i-candado"/></svg>
+            <h3>Un reclamo por objeto</h3>
+            <p>Cada reclamo queda ligado a tu cuenta, con máximo 3 por persona.</p>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <aside class="aviso aparecer" aria-label="Aviso">
-      <p><strong>Proyecto escolar con datos ficticios.</strong> Creado para «Mentes que Programan 2026». Ningún objeto ni persona es real.</p>
-    </aside>
+    <!-- 03 · Profesores -->
+    <section class="seccion seccion-blanca" id="profesores" aria-labelledby="titulo-profesores">
+      <div class="contenedor dos-columnas">
+        <header class="seccion-cabeza revelar">
+          <p class="capitulo"><span>03</span> / Para profesores</p>
+          <h2 id="titulo-profesores" class="titulo-seccion">El inspector ve <span class="resalte">el panorama.</span></h2>
+          <p class="seccion-intro">Los estudiantes buscan y reclaman. Los profesores, además, entregan objetos y usan el Radar para decidir dónde avisar primero.</p>
+          <ul class="lista-check">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-ok"/></svg>Conteo en vivo de Disponibles, Reclamados y Entregados.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-ok"/></svg>Objetos que llevan más de 5 días sin reclamar.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-ok"/></svg>Top 3 de lugares y categorías con más hallazgos.</li>
+          </ul>
+        </header>
+        <figure class="radar revelar" aria-labelledby="radar-leyenda">
+          <div class="radar-conteo" aria-hidden="true">
+            <span class="rc rc-disp"><b>19</b>Disponible</span>
+            <span class="rc rc-recl"><b>3</b>Reclamado</span>
+            <span class="rc rc-entr"><b>4</b>Entregado</span>
+          </div>
+          <div class="radar-alerta" aria-hidden="true"><svg class="ico"><use href="#i-reloj"/></svg><b>2 objetos estancados</b><small>Cartuchera roja · 7 días</small></div>
+          <div class="radar-barras" aria-hidden="true">
+            <p>Lugares con más hallazgos</p>
+            <span style="--v:100%"><i>Patio central</i><b>6</b></span>
+            <span style="--v:66%"><i>Cancha</i><b>4</b></span>
+            <span style="--v:50%"><i>Laboratorio 2</i><b>3</b></span>
+          </div>
+          <figcaption id="radar-leyenda" class="demo-leyenda">Ilustración del Radar con datos ficticios.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 · Seguridad -->
+    <section class="seccion" id="seguridad" aria-labelledby="titulo-seguridad">
+      <div class="contenedor">
+        <header class="seccion-cabeza revelar">
+          <p class="capitulo"><span>04</span> / Seguridad</p>
+          <h2 id="titulo-seguridad" class="titulo-seccion">Sin cuentas falsas, <span class="resalte">sin atajos.</span></h2>
+          <p class="seccion-intro">Las reglas no viven solo en la pantalla: el servidor las vuelve a comprobar.</p>
+        </header>
+        <ul class="seguridad">
+          <li class="tarjeta revelar"><div class="tarjeta-cabeza"><svg class="ico" aria-hidden="true"><use href="#i-correo"/></svg><h3>Correo verificado</h3></div><p>Para registrarte confirmas tu correo con un código. Se bloquean correos desechables y variantes como nombre+x@.</p></li>
+          <li class="tarjeta revelar"><div class="tarjeta-cabeza"><svg class="ico" aria-hidden="true"><use href="#i-escudo"/></svg><h3>Rol de profesor</h3></div><p>Solo se asigna desde el panel de administración; un estudiante no puede dárselo a sí mismo.</p></li>
+          <li class="tarjeta revelar"><div class="tarjeta-cabeza"><svg class="ico" aria-hidden="true"><use href="#i-base"/></svg><h3>Base de datos protegida</h3></div><p>Supabase con RLS: sin el rol de profesor, la base rechaza marcar un objeto como entregado.</p></li>
+          <li class="tarjeta revelar"><div class="tarjeta-cabeza"><svg class="ico" aria-hidden="true"><use href="#i-candado"/></svg><h3>Datos ficticios</h3></div><p>Ningún objeto ni persona es real. Las fotos muestran solo objetos, nunca a personas.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 · Tecnología y equipo -->
+    <section class="seccion seccion-oscura" id="equipo" aria-labelledby="titulo-equipo">
+      <div class="contenedor">
+        <header class="seccion-cabeza revelar">
+          <p class="capitulo"><span>05</span> / Equipo y tecnología</p>
+          <h2 id="titulo-equipo" class="titulo-seccion">Un código, <span class="resalte">tres plataformas.</span></h2>
+          <p class="seccion-intro seccion-intro-clara">La misma app funciona en la web, en Android y en Windows.</p>
+        </header>
+        <ul class="chips revelar">
+          <li>React + TypeScript</li><li>Tailwind CSS</li><li>Supabase</li><li>Clerk</li>
+          <li>Capacitor (Android)</li><li>Electron (Windows)</li><li>Cloudflare</li><li>Vitest</li>
+        </ul>
+        <ul class="funciones equipo">
+          <li class="funcion revelar"><svg class="ico funcion-ico" aria-hidden="true"><use href="#i-codigo"/></svg><h3>William</h3><p>Arquitectura, servicios, Supabase y Clerk, integración y publicación.</p></li>
+          <li class="funcion revelar"><svg class="ico funcion-ico" aria-hidden="true"><use href="#i-grupo"/></svg><h3>Gabriel</h3><p>Componentes, datos de prueba, «¿Qué perdiste?» y documentación.</p></li>
+          <li class="funcion revelar"><svg class="ico funcion-ico" aria-hidden="true"><use href="#i-chispa"/></svg><h3>Mister</h3><p>Diseño visual, páginas y la idea del Radar de inspección.</p></li>
+          <li class="funcion revelar"><svg class="ico funcion-ico" aria-hidden="true"><use href="#i-escudo"/></svg><h3>IA con revisión</h3><p>Usamos asistentes de IA declarados en la bitácora; cada cambio pasa pruebas y revisión humana.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 06 · Instalación -->
+    <section class="seccion" id="instalar" aria-labelledby="titulo-instalar">
+      <div class="contenedor">
+        <header class="seccion-cabeza revelar">
+          <p class="capitulo"><span>06</span> / Instalar</p>
+          <h2 id="titulo-instalar" class="titulo-seccion">Listo en <span class="resalte">un minuto.</span></h2>
+          <p class="seccion-intro">La app no pasa por tiendas, así que el sistema pide una confirmación extra.</p>
+        </header>
+        <div class="tarjetas">
+          <article class="tarjeta revelar">
+            <div class="tarjeta-cabeza"><svg class="ico" aria-hidden="true"><use href="#i-android"/></svg><h3>Android</h3></div>
+            <ol class="lista-pasos">
+              <li>Descarga <strong>Encuentralo.apk</strong> y ábrelo desde Descargas.</li>
+              <li>Si el celular lo bloquea, permite <strong>instalar apps de orígenes desconocidos</strong> para tu navegador o gestor de archivos.</li>
+              <li>Toca <strong>Instalar</strong> y abre Encuéntralo.</li>
+            </ol>
+            <a class="enlace-flecha" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk">Descargar APK<svg class="ico" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+          </article>
+          <article class="tarjeta revelar">
+            <div class="tarjeta-cabeza"><svg class="ico" aria-hidden="true"><use href="#i-windows"/></svg><h3>Windows</h3></div>
+            <ol class="lista-pasos">
+              <li>Descarga <strong>Encuentralo.exe</strong> y haz doble clic.</li>
+              <li>Si aparece SmartScreen («Windows protegió su PC»), elige <strong>Más información → Ejecutar de todos modos</strong>. Sale porque la app no tiene firma comercial.</li>
+              <li>La app se abre directamente: no se instala nada.</li>
+            </ol>
+            <a class="enlace-flecha" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe">Descargar EXE<svg class="ico" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cierre -->
+    <section class="cierre" aria-labelledby="titulo-cierre">
+      <div class="marco" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="contenedor cierre-interior revelar">
+        <h2 id="titulo-cierre" class="cierre-titulo">Encuéntral<span class="resalte">o.</span></h2>
+        <p class="cierre-sub">Busca. Revisa. <span class="resalte">Reclama.</span></p>
+        <div class="cierre-botones">
+          <a class="boton boton-pastilla boton-pastilla-grande" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.apk"><svg class="ico" aria-hidden="true"><use href="#i-android"/></svg>Android (APK)</a>
+          <a class="boton boton-pastilla boton-pastilla-grande" href="https://github.com/wither63z/Encuentralo/releases/latest/download/Encuentralo.exe"><svg class="ico" aria-hidden="true"><use href="#i-windows"/></svg>Windows (.exe)</a>
+          <a class="boton boton-pastilla boton-pastilla-grande boton-fantasma" href="./app/">Usar en el navegador<svg class="ico" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+        </div>
+        <p class="meta meta-clara">Proyecto escolar · Técnico Salesiano</p>
+      </div>
+    </section>
   </main>
 
   <footer class="pie">
-    <img src="./icono-encuentralo.png" alt="" width="32" height="32">
-    <p>Encuéntralo · Técnico Salesiano · <a href="https://github.com/wither63z/Encuentralo">Código en GitHub</a></p>
+    <div class="contenedor pie-fila">
+      <p>Proyecto escolar · datos 100% ficticios · Mentes que Programan 2026</p>
+      <a class="pie-enlace" href="https://github.com/wither63z/Encuentralo"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg>Repositorio en GitHub</a>
+    </div>
   </footer>
 
   <script>
-    // Revela cada bloque al entrar en pantalla (si el navegador no lo soporta, todo queda visible).
-    if ('IntersectionObserver' in window) {
-      document.documentElement.classList.add('animar')
-      const obs = new IntersectionObserver((entradas) => {
-        entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) } })
-      }, { threshold: 0.15 })
-      document.querySelectorAll('.aparecer').forEach((el) => obs.observe(el))
-    }
+    // JS mínimo y opcional: revela secciones al hacer scroll y permite pausar la animación de la maqueta.
+    (function () {
+      var raiz = document.documentElement
+      var reducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (!reducido && 'IntersectionObserver' in window) {
+        raiz.classList.add('js-revelar')
+        var obs = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target) }
+          })
+        }, { rootMargin: '0px 0px -8% 0px' })
+        document.querySelectorAll('.revelar').forEach(function (el) { obs.observe(el) })
+      }
+      var boton = document.querySelector('.pausa')
+      if (boton && !reducido) {
+        boton.hidden = false
+        boton.addEventListener('click', function () {
+          var pausado = raiz.classList.toggle('pausado')
+          boton.setAttribute('aria-pressed', String(pausado))
+          boton.querySelector('.pausa-texto').textContent = pausado ? 'Reanudar animación' : 'Pausar animación'
+        })
+      }
+    })()
   </script>
 </body>
 </html>
