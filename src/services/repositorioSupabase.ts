@@ -35,4 +35,12 @@ export const repositorioSupabase: RepositorioObjetos = {
     if (error) return { ok: false, mensaje: TEXTOS.errores.enviar }
     return data === true ? { ok: true } : { ok: false, mensaje: TEXTOS.errores.noDisponible }
   },
+
+  // Entrada: id · Proceso: llama a la función marcar_entregado (solo cambia si estaba
+  // Reclamado) · Salida: { ok } o { ok:false, mensaje }.
+  async marcarEntregado(objetoId) {
+    const { data, error } = await obtenerClienteSupabase().rpc('marcar_entregado', { p_objeto: objetoId })
+    if (error) return { ok: false, mensaje: TEXTOS.errores.entregar }
+    return data === true ? { ok: true } : { ok: false, mensaje: TEXTOS.errores.noReclamado }
+  },
 }

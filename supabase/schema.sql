@@ -53,6 +53,24 @@ $$;
 revoke all on function reclamar_objeto(bigint, text, text, text) from public;
 grant execute on function reclamar_objeto(bigint, text, text, text) to anon, authenticated;
 
+-- Inspector: única vía para pasar de Reclamado a Entregado (nunca desde Disponible).
+-- DEMO: se concede a anon para la presentación. En producción se restringiría a inspectores
+-- (por ejemplo, revisar un rol en auth.jwt() y conceder solo a authenticated).
+create or replace function marcar_entregado(p_objeto bigint)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  update objetos set estado = 'Entregado' where id = p_objeto and estado = 'Reclamado';
+  return found;
+end;
+$$;
+
+revoke all on function marcar_entregado(bigint) from public;
+grant execute on function marcar_entregado(bigint) to anon, authenticated;
+
 -- Seed: los 10 objetos oficiales tal cual.
 insert into objetos (id, nombre, categoria, lugar, fecha, estado, descripcion) values
  (1,'Chompa azul con capucha','Ropa','Cancha de básquet','2026-11-18','Disponible','Talla M con cierre plateado'),
@@ -71,3 +89,4 @@ on conflict (id) do nothing;
 -- 1) select * from reclamos;                      -> debe venir vacío o fallar.
 -- 2) update objetos set estado='Entregado' where id=1;  -> no debe afectar filas.
 -- 3) select reclamar_objeto(3,'Ana','2do','seña larga 123'); -> false (ya Reclamado).
+-- 4) select marcar_entregado(1); -> false (Disponible no se entrega directo).
